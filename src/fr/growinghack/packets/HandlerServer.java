@@ -26,8 +26,17 @@ public class HandlerServer extends Handler
 	{
 		packet.connected = this.gh.server.connected.size();
 		File file = new File("accounts/");
-		int i = file.listFiles().length;
-		packet.registered = i;
+		
+		if(file.exists())
+		{
+			int i = file.listFiles().length;
+			packet.registered = i;
+		}
+		else
+		{
+			packet.registered = 0;
+		}
+		
 		this.gh.server.server.sendToTCP(connexionID, packet);
 	} 
 	

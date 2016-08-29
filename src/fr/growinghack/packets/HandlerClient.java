@@ -90,6 +90,9 @@ public class HandlerClient extends Handler
 	{
 		File file = new File("cache/" + packet.username + ".jpg");
 		
-		ImageEncoding.bytesToImage(packet.image, file, "jpg");
+		if(file.exists())
+		{
+			ImageEncoding.bytesToImage(packet.image, file, "jpg");
+		}
 	}
 }

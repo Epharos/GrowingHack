@@ -28,8 +28,8 @@ public class GrowOS extends OS
 	public ButtonLabel settings = new ButtonLabel(Gdx.graphics.getWidth() - (int) Font.getWidth("OFF", Font.getFont(Font.growing, 27)) - 60 - (int) Font.getWidth("PARAMETRES", Font.getFont(Font.growing, 27)) - 20, Gdx.graphics.getHeight() - 7, "PARAMETRES", Font.getFont(Font.hack, 27), Font.getFont(Font.growing, 27));
 	public ButtonLabel ping = new ButtonLabel(Gdx.graphics.getWidth() - (int) Font.getWidth("OFF", Font.getFont(Font.growing, 27)) - 60 - (int) Font.getWidth("PARAMETRES", Font.getFont(Font.growing, 27)) - (int) Font.getWidth("000 MS", Font.getFont(Font.growing, 27)) - 40, Gdx.graphics.getHeight() - 7, "PING", Font.getFont(Font.hack, 27), Font.getFont(Font.growing, 27));
 	
-    private File file = new File("cache/" + GrowingHack.currentUser.username + ".jpg");
-    private Texture userImage = new Texture(Gdx.files.absolute(file.getAbsolutePath()));
+    private File file = new File("cache/" + GrowingHack.currentUser.username + ".jpg");    
+    private Texture userImage;
 	
     private int timerPing = Integer.MAX_VALUE;    
     
@@ -38,6 +38,15 @@ public class GrowOS extends OS
 	public GrowOS()
 	{
 		GrowingHack.currentOS = this;
+		
+		if(this.file.exists())
+		{
+			this.userImage = new Texture(Gdx.files.absolute(file.getAbsolutePath()));
+		}
+		else
+		{
+			this.userImage = new Texture(Gdx.files.internal("user/noavatar.png"));
+		}
 		
 		this.icons.add(new Terminal());
 		this.icons.add(new Identity());
