@@ -314,7 +314,8 @@ public class HandlerServer extends Handler
 				
 				bw2.close();
 				
-				ImageEncoding.bytesToImage(packet.avatar, new File("accounts/" + packet.username + "/avatar.jpg"), "jpg");
+				if(!packet.useDefaultAvatar && packet.avatar == null)
+					ImageEncoding.bytesToImage(packet.avatar, new File("accounts/" + packet.username + "/avatar.jpg"), "jpg");
 				
 				PacketAuthentificationError send = new PacketAuthentificationError();
 				send.error = 42;

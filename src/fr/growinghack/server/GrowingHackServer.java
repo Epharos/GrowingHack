@@ -10,18 +10,6 @@ import com.esotericsoftware.kryonet.Server;
 
 import fr.growinghack.packets.HandlerServer;
 import fr.growinghack.packets.Packet;
-import fr.growinghack.packets.PacketAuthentificationError;
-import fr.growinghack.packets.PacketClientInfos;
-import fr.growinghack.packets.PacketClipboard;
-import fr.growinghack.packets.PacketCommand;
-import fr.growinghack.packets.PacketConnection;
-import fr.growinghack.packets.PacketConnexionScreenInfos;
-import fr.growinghack.packets.PacketCreateAccount;
-import fr.growinghack.packets.PacketIP;
-import fr.growinghack.packets.PacketPing;
-import fr.growinghack.packets.PacketTerminal;
-import fr.growinghack.packets.PacketUserImage;
-import fr.growinghack.packets.PacketUsername;
 
 public class GrowingHackServer 
 {
@@ -42,21 +30,12 @@ public class GrowingHackServer
 		server = new Server(1000000, 1000000);
 		kryo = server.getKryo();
 		
-		kryo.register(Packet.class);
-		kryo.register(PacketUsername.class);
-		kryo.register(PacketCreateAccount.class);
-		kryo.register(PacketAuthentificationError.class);
-		kryo.register(PacketConnection.class);
-		kryo.register(PacketConnexionScreenInfos.class);
-		kryo.register(byte[].class);
-		kryo.register(PacketUserImage.class);
-		kryo.register(PacketClientInfos.class);
-		kryo.register(PacketPing.class);
-		kryo.register(PacketCommand.class);
-		kryo.register(PacketTerminal.class);
-		kryo.register(String[].class);
-		kryo.register(PacketIP.class);
-		kryo.register(PacketClipboard.class);
+		Packet.registerPackets();
+		
+		for(Class<?> cl : Packet.classes)
+		{
+			kryo.register(cl);
+		}
 		
 		server.addListener(new Listener()
 		{
