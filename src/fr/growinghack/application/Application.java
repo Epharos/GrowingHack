@@ -2,6 +2,7 @@ package fr.growinghack.application;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 import fr.growinghack.os.OS;
@@ -35,6 +36,9 @@ public abstract class Application
 	
 	public int prevMouseX = -1;
 	public int prevMouseY = -1;
+	private Texture closeTextureButton = new Texture(Gdx.files.internal("ui/close.png"));
+	private Texture fullscreenTextureButton = new Texture(Gdx.files.internal("ui/fullscreen.png"));
+	private Texture reduceTextureButton = new Texture(Gdx.files.internal("ui/reduce.png"));
 	
 	public Application()
 	{
@@ -271,17 +275,20 @@ public abstract class Application
 	{
 		Font.appName.draw(batch, this.getAppName(), this.x + 4, Gdx.graphics.getHeight() - this.y - 4);
 		
-		this.close.x = this.x + this.width - 4 - (int) Font.getWidth("x", Font.buttonWindow);
+		this.close.x = this.x + this.width - 5 - (int) Font.getWidth("x", Font.buttonWindow);
 		this.close.y = Gdx.graphics.getHeight() - this.y - 1;
 		this.close.draw(batch, mouseX, mouseY);
+		batch.draw(closeTextureButton, close.x - 4, close.y - 16, 13, 13);
 		
-		this.fullscreen.x = this.x + this.width - 4 - (int) Font.getWidth("x +", Font.buttonWindow);
+		this.fullscreen.x = this.x + this.width - 15 - (int) Font.getWidth("x +", Font.buttonWindow);
 		this.fullscreen.y = Gdx.graphics.getHeight() - this.y - 3;
 		this.fullscreen.draw(batch, mouseX, mouseY);
+		batch.draw(fullscreenTextureButton, fullscreen.x - 2, fullscreen.y - 14, 13, 13);
 		
-		this.reduce.x = this.x + this.width - 4 - (int) Font.getWidth("x + -", Font.buttonWindow);
+		this.reduce.x = this.x + this.width - 25 - (int) Font.getWidth("x + -", Font.buttonWindow);
 		this.reduce.y = Gdx.graphics.getHeight() - this.y - 3;
 		this.reduce.draw(batch, mouseX, mouseY);
+		batch.draw(reduceTextureButton, reduce.x - 5, reduce.y - 14, 13, 13);
 	}
 	
 	public abstract String getAppName();

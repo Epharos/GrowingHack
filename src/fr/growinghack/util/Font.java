@@ -21,6 +21,8 @@ public class Font
 	
 	public static BitmapFont terminalWhite;
 	public static BitmapFont terminalGreen;
+	public static BitmapFont terminalRed;
+	public static BitmapFont terminalBackground;
 	
 	public static BitmapFont growingTitle;
 	public static BitmapFont hackTitle;
@@ -46,6 +48,8 @@ public class Font
 		
 		Font.terminalWhite = Font.createFont("CeLb", 19, Color.WHITE);
 		Font.terminalGreen = Font.createFont("CeLb", 19, new Color(0.7f, 1f, 0.25f, 1f));
+		Font.terminalBackground = Font.createFont("CeLb", 19, new Color(0.18f, 0.23f, 0.31f, 1f));
+		Font.terminalRed = Font.createFont("CeLb", 19, new Color(0.93f, 0.14f, 0.30f, 1f));
 		
 		Font.growingTitle = Font.createFont("CeLb", 48, new Color(1f, 0.73f, 0.32f, 1f));
 		Font.hackTitle = Font.createFont("CeLb", 48, new Color(0.75f, 0.75f, 0.75f, 1f));
