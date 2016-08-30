@@ -47,7 +47,6 @@ public class HandlerServer extends Handler
 	
 	public void handleTerminal(PacketTerminal packet, int connexionID) 
 	{
-		System.out.println("Packet envoyé : " + packet.lines);
 		this.gh.server.server.sendToTCP(connexionID, packet);
 	}
 	
