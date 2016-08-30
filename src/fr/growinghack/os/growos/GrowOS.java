@@ -4,6 +4,7 @@ import java.io.File;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -24,9 +25,11 @@ import fr.growinghack.util.Timer;
 
 public class GrowOS extends OS 
 {		
-	public ButtonLabel off = new ButtonLabel(Gdx.graphics.getWidth() - (int) Font.getWidth("OFF", Font.getFont(Font.growing, 27)) - 60, Gdx.graphics.getHeight() - 7, "OFF", Font.getFont(Font.hack, 27), Font.getFont(Font.growing, 27));
+	//public ButtonLabel off = new ButtonLabel(Gdx.graphics.getWidth() - (int) Font.getWidth("OFF", Font.getFont(Font.growing, 27)) - 60, Gdx.graphics.getHeight() - 7, "OFF", Font.getFont(Font.hack, 27), Font.getFont(Font.growing, 27));
 	public ButtonLabel settings = new ButtonLabel(Gdx.graphics.getWidth() - (int) Font.getWidth("OFF", Font.getFont(Font.growing, 27)) - 60 - (int) Font.getWidth("PARAMETRES", Font.getFont(Font.growing, 27)) - 20, Gdx.graphics.getHeight() - 7, "PARAMETRES", Font.getFont(Font.hack, 27), Font.getFont(Font.growing, 27));
 	public ButtonLabel ping = new ButtonLabel(Gdx.graphics.getWidth() - (int) Font.getWidth("OFF", Font.getFont(Font.growing, 27)) - 60 - (int) Font.getWidth("PARAMETRES", Font.getFont(Font.growing, 27)) - (int) Font.getWidth("000 MS", Font.getFont(Font.growing, 27)) - 40, Gdx.graphics.getHeight() - 7, "PING", Font.getFont(Font.hack, 27), Font.getFont(Font.growing, 27));
+	
+	private Texture offButton = new Texture(Gdx.files.internal("ui/off.png"));
 	
     private File file = new File("cache/" + GrowingHack.currentUser.username + ".jpg");    
     private Texture userImage;
@@ -81,7 +84,7 @@ public class GrowOS extends OS
 	}
 	
 	public void render(Batch batch, int mouseX, int mouseY) 
-	{				
+	{			
 		Timer.update(Gdx.graphics.getDeltaTime());
 		
 		batch.setColor(batch.getColor().r, batch.getColor().g, batch.getColor().b, 0.40f);
@@ -93,8 +96,27 @@ public class GrowOS extends OS
 				batch.draw(Button.inside, i, Gdx.graphics.getHeight() - j);
 			}
 		}
-		
 		batch.setColor(batch.getColor().r, batch.getColor().g, batch.getColor().b, 1f);
+		
+		int xB = Gdx.graphics.getWidth() - 80;
+		int yB =  Gdx.graphics.getHeight() - 32;
+		Color origin = batch.getColor();
+		
+		if ((mouseX > xB && mouseX < (xB + offButton.getWidth()) && mouseY < offButton.getHeight() && mouseY > 0))
+		{
+			batch.setColor(1f, 0.80f, 0.54f, 1f);
+			batch.draw(offButton, xB, yB, 28, 28);
+			batch.setColor(1f, 1f, 1f, 1f);
+			if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) 
+			{
+				Gdx.app.exit();
+			}
+		}
+		else
+		{
+			batch.setColor(origin.r, origin.g, origin.b, 1f);
+			batch.draw(offButton, xB, yB, 28, 28);
+		}
 		
 		Font.getFont(Font.hack, 27).draw(batch, "RANG ", 4, Gdx.graphics.getHeight() - 7);
 		Font.getFont(Font.growing, 27).draw(batch, String.valueOf(GrowingHack.currentUser.level), Font.getWidth("RANG ", Font.getFont(Font.hack, 27)) + 4, Gdx.graphics.getHeight() - 7);
@@ -102,7 +124,7 @@ public class GrowOS extends OS
 		Font.getFont(Font.hack, 27).draw(batch, "CASH", 100, Gdx.graphics.getHeight() - 7);
 		Font.getFont(Font.growing, 27).draw(batch, GrowingHack.currentUser.money + "$", 100 + Font.getWidth("CASH ", Font.getFont(Font.hack, 27)), Gdx.graphics.getHeight() - 7);
 		
-		this.off.draw(batch, mouseX, mouseY);
+	//	this.off.draw(batch, mouseX, mouseY);
 		this.settings.draw(batch, mouseX, mouseY);
 		this.ping.draw(batch, mouseX, mouseY);
 		
@@ -187,11 +209,11 @@ public class GrowOS extends OS
 			this.applications.get(this.currentApplication).getMouseAction(mouseX, mouseY, this);
 		}
 		
-		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT) && this.off.isButtonOver(mouseX, mouseY))
-		{
-			Gdx.app.exit();
-		}
-		
+//		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT) && this.off.isButtonOver(mouseX, mouseY))
+//		{
+//			Gdx.app.exit();
+//		}
+//		
 		this.timerPing++;
 		
 		if(this.timerPing >= 180)
