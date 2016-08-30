@@ -117,7 +117,7 @@ public class GrowOS extends OS
 			batch.setColor(origin.r, origin.g, origin.b, 1f);
 			batch.draw(offButton, xB, yB, 28, 28);
 		}
-		
+		//trest
 		Font.getFont(Font.hack, 27).draw(batch, "RANG ", 4, Gdx.graphics.getHeight() - 7);
 		Font.getFont(Font.growing, 27).draw(batch, String.valueOf(GrowingHack.currentUser.level), Font.getWidth("RANG ", Font.getFont(Font.hack, 27)) + 4, Gdx.graphics.getHeight() - 7);
 		
