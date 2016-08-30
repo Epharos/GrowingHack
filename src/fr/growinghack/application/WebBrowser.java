@@ -1,6 +1,7 @@
 package fr.growinghack.application;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
@@ -17,10 +18,10 @@ public class WebBrowser extends Application
 	{
 		this.setDimension((int) (Gdx.graphics.getWidth() / 1.5f), (int) (Gdx.graphics.getHeight() / 1.5f));
 		this.url = new TextField(0, 0, this.width - 12, 32, "growinghack.fr");
-		this.webBrowser = new fr.growinghack.ui.WebBrowser(0, 0, this.width, this.height - 64);
-		this.webBrowser.navigate("growinghack.fr");
+		this.webBrowser = new fr.growinghack.ui.WebBrowser(0, 0, this.width, this.height - 64, this);
 		this.x = 200;
 		this.y = 200;
+		this.webBrowser.navigate(this.url.text);
 	}
 	
 	public void render(Batch batch, int mouseX, int mouseY) 
@@ -40,6 +41,10 @@ public class WebBrowser extends Application
 		this.webBrowser.draw(batch, mouseX, mouseY);
 		
 		batch.draw(Button.inside, this.x, Gdx.graphics.getHeight() - this.y - this.height + this.webBrowser.height, this.width, 2);
+		
+		if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {	
+			this.webBrowser.navigate(this.url.text);
+		}
 	}
 
 	public String getAppName() 

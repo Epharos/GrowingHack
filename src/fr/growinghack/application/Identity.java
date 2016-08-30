@@ -11,7 +11,7 @@ import fr.growinghack.util.Font;
 
 public class Identity extends Application 
 {
-	private File file = new File("cache/" + GrowingHack.currentUser.username + ".jpg");
+	private File file = new File("accounts/" + GrowingHack.currentUser.username + "/avatar.jpg");
 	private Texture userImage = new Texture(Gdx.files.absolute(file.getAbsolutePath()));
 	private Texture type = new Texture(Gdx.files.internal(GrowingHack.currentUser.type == 0 ? "ui/hacker.png" : "ui/police.png"));
 	
@@ -31,7 +31,6 @@ public class Identity extends Application
 		}
 		catch(Exception e)
 		{
-			
 		}
 		
 		Font.getFont(Font.growing, 27).draw(batch, GrowingHack.currentUser.username, this.x + 206, Gdx.graphics.getHeight() - this.y - 30);
