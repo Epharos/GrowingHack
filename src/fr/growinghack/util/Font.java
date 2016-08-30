@@ -46,10 +46,10 @@ public class Font
 		Font.buttonWindow = Font.createFont("CeLb", 18, Color.WHITE);
 		Font.buttonWindowOver = Font.createFont("CeLb", 18, new Color(0.75f, 0.75f, 0.75f, 1f));
 		
-		Font.terminalWhite = Font.createFont("CeLb", 19, Color.WHITE);
-		Font.terminalGreen = Font.createFont("CeLb", 19, new Color(0.7f, 1f, 0.25f, 1f));
-		Font.terminalBackground = Font.createFont("CeLb", 19, new Color(0.18f, 0.23f, 0.31f, 1f));
-		Font.terminalRed = Font.createFont("CeLb", 19, new Color(0.93f, 0.14f, 0.30f, 1f));
+		Font.terminalWhite = Font.createFont("Consolas", 19, Color.WHITE);
+		Font.terminalGreen = Font.createFont("Consolas", 19, new Color(0.7f, 1f, 0.25f, 1f));
+		Font.terminalBackground = Font.createFont("Consolas", 19, new Color(0.18f, 0.23f, 0.31f, 1f));
+		Font.terminalRed = Font.createFont("Consolas", 19, new Color(0.93f, 0.14f, 0.30f, 1f));
 		
 		Font.growingTitle = Font.createFont("CeLb", 48, new Color(1f, 0.73f, 0.32f, 1f));
 		Font.hackTitle = Font.createFont("CeLb", 48, new Color(0.75f, 0.75f, 0.75f, 1f));
@@ -180,5 +180,28 @@ public class Font
 		}
 		
 		Font.draw(batch, font, i, j, text);
+	}
+	
+	public static void drawMultiColor(BitmapFont bf, String[] lines, Batch batch, int x, int y, Color ... colors)
+	{
+		if(lines.length != colors.length)
+		{
+			System.err.println("Les mots à afficher n'ont pas leur équivalent en couleurs");
+			return;
+		}
+		
+		for(int i = 0 ; i < lines.length ; i++)
+		{
+			int totalWidth = 0;
+			
+			for(int a = 0 ; a < i ; a++)
+			{
+				totalWidth += Font.getWidth(lines[a], bf);
+			}
+			
+			bf.setColor(colors[i]);
+			
+			Font.draw(batch, bf, x + totalWidth, y, lines[i]);
+		}
 	}
 }

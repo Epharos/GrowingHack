@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
@@ -161,8 +162,13 @@ public class Terminal extends Application
 				Font.terminalWhite.draw(batch, Terminal.lines.get(Terminal.lines.size() - (Terminal.lines.size() < 22 ? Terminal.lines.size() : 22) + i - Terminal.drawBetween), this.x + 4, Gdx.graphics.getHeight() - this.y - 22 * i - 4 - 24);
 			}
 		}
-		Font.terminalWhite.draw(batch, GrowingHack.currentUser.username + ":~$ ", this.x + 4, Gdx.graphics.getHeight() - this.y - (i + 1) * 19 - (4 * (i + 1)) - 3 + 12);
-		Font.terminalWhite.draw(batch, Terminal.currentLine, this.x + 4 + Font.getWidth(GrowingHack.currentUser.username + ":~$ ", Font.terminalGreen), Gdx.graphics.getHeight() - this.y - (i + 1) * 19 - (4 * (i + 1)) - 3 + 12);
+		
+		Font.drawMultiColor(Font.terminalWhite, new String[]
+				{
+						GrowingHack.currentUser.username + "@",
+						"Server1 ",
+						":~$ " + Terminal.currentLine
+				}, batch, this.x + 4, Gdx.graphics.getHeight() - this.y - (i + 1) * 19 - (4 * (i + 1)) - 3 + 12, Color.WHITE, Color.RED, Color.WHITE);
 	}
 	
 	public String getAppName() 
