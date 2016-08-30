@@ -16,7 +16,8 @@ public class GrowingHackSite extends Site {
 	}
 
 	@Override
-	public void render(Batch batch, int x, int y, int width, int height) {
+	public void render(Batch batch, int x, int y, int width, int height) 
+	{
 		batch.draw(background, x - 4, y + 6, width, -height + 64);
 		Font.terminalRed.draw(batch, "BIENVENUE SUR LE SITE DE GROWING HACK", x, y);
 	}
