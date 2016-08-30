@@ -14,11 +14,14 @@ public class CommandInfo extends Command
 
 	public void execute(String[] args, boolean client, boolean server, int i) 
 	{
+		System.out.println("Execute");
+		
 		if(client)
 		{
 			PacketTerminal packet = new PacketTerminal();
 			packet.setLines("Client is running on -" + GrowingHackClient.build + "- version");
 			GrowingHack.instance.client.client.sendTCP(packet);
+			System.out.println("Client sent a packet");
 		}
 		
 		if(server)
