@@ -120,7 +120,7 @@ public class GrowOS extends OS
 		
 		for(int i = 0 ; i < this.icons.size() ; i++)
 		{
-			batch.draw(this.icons.get(i).icon, 134 * (i % appInALine) + sizeBetweenAppAndBorderLeft, Gdx.graphics.getHeight() - 94 * (i / appInALine) - 120);
+			batch.draw(this.icons.get(i).icon, 134 * (i % appInALine) + sizeBetweenAppAndBorderLeft, Gdx.graphics.getHeight() - 94 * (i / appInALine) - 120, 64, 64);
 			Font.appName.draw(batch, getAppName(this.icons.get(i).getAppName()), 134 * (i % appInALine) + sizeBetweenAppAndBorderLeft + 32 - Font.getWidth(getAppName(this.icons.get(i).getAppName()), Font.appName) / 2, Gdx.graphics.getHeight() - 94 * (i / appInALine) - 124);
 			
 			if(mouseX >= 134 * (i % appInALine) + sizeBetweenAppAndBorderLeft - 25 && mouseX <= 134 * (i % appInALine) + sizeBetweenAppAndBorderLeft + 89)
