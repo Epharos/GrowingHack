@@ -20,7 +20,7 @@ public class Handler
 
 	public void handlePing(PacketPing packetPing, int connexionID) {}
 
-	public void handleTerminal(PacketTerminal packetTerminal) {}
+	public void handleTerminal(PacketTerminal packetTerminal, int connexionID) {}
 
 	public void handleUserImage(PacketUserImage packetUserImage, int connexionID) {}
 

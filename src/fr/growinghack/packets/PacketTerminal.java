@@ -11,6 +11,6 @@ public class PacketTerminal extends Packet
 
 	public void handlePacket(Handler handler, int connexionID) 
 	{
-		handler.handleTerminal(this);
+		handler.handleTerminal(this, connexionID);
 	}
 }

@@ -195,7 +195,15 @@ public class HandlerServer extends Handler
 	public void handleUserImage(PacketUserImage packet, int connexionID) 
 	{
 		File file = new File("accounts/" + packet.username + "/avatar.jpg");
-		packet.image = ImageEncoding.imageToBytes(file, "jpg");
+		
+		if(file.exists())
+		{
+			packet.image = ImageEncoding.imageToBytes(file, "jpg");
+		}
+		else
+		{
+			packet.useDefaultImage = true;
+		}
 		
 		this.gh.server.server.sendToTCP(connexionID, packet);
 	}

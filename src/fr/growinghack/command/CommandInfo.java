@@ -13,7 +13,7 @@ public class CommandInfo extends Command
 	}
 
 	public void execute(String[] args, boolean client, boolean server, int i) 
-	{
+	{		
 		if(client)
 		{
 			PacketTerminal packet = new PacketTerminal();

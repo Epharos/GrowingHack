@@ -75,7 +75,7 @@ public class HandlerClient extends Handler
 		GrowingHack.currentUser.ping = System.currentTimeMillis() - packet.start;
 	} 
 	
-	public void handleTerminal(PacketTerminal packet) 
+	public void handleTerminal(PacketTerminal packet, int connexionID) 
 	{
 		for(String s : packet.lines)
 		{
@@ -90,7 +90,12 @@ public class HandlerClient extends Handler
 	{
 		File file = new File("cache/" + packet.username + ".jpg");
 		
-		if(file.exists())
+		if(!file.exists())
+		{
+			file.mkdir();
+		}
+		
+		if(file.exists() && !packet.useDefaultImage)
 		{
 			ImageEncoding.bytesToImage(packet.image, file, "jpg");
 		}
