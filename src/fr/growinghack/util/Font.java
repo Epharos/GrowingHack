@@ -19,10 +19,7 @@ public class Font
 	public static BitmapFont buttonWindow;
 	public static BitmapFont buttonWindowOver;
 	
-	public static BitmapFont terminalWhite;
-	public static BitmapFont terminalGreen;
-	public static BitmapFont terminalRed;
-	public static BitmapFont terminalBackground;
+	public static BitmapFont terminal;
 	
 	public static BitmapFont growingTitle;
 	public static BitmapFont hackTitle;
@@ -46,10 +43,7 @@ public class Font
 		Font.buttonWindow = Font.createFont("CeLb", 18, Color.WHITE);
 		Font.buttonWindowOver = Font.createFont("CeLb", 18, new Color(0.75f, 0.75f, 0.75f, 1f));
 		
-		Font.terminalWhite = Font.createFont("Consolas", 19, Color.WHITE);
-		Font.terminalGreen = Font.createFont("Consolas", 19, new Color(0.7f, 1f, 0.25f, 1f));
-		Font.terminalBackground = Font.createFont("Consolas", 19, new Color(0.18f, 0.23f, 0.31f, 1f));
-		Font.terminalRed = Font.createFont("Consolas", 19, new Color(0.93f, 0.14f, 0.30f, 1f));
+		Font.terminal = Font.createFont("Consolas", 15, Color.WHITE);
 		
 		Font.growingTitle = Font.createFont("CeLb", 48, new Color(1f, 0.73f, 0.32f, 1f));
 		Font.hackTitle = Font.createFont("CeLb", 48, new Color(0.75f, 0.75f, 0.75f, 1f));
@@ -182,8 +176,8 @@ public class Font
 		Font.draw(batch, font, i, j, text);
 	}
 	
-	public static void drawMultiColor(BitmapFont bf, String[] lines, Batch batch, int x, int y, Color ... colors)
-	{
+	public static void drawMulticolor(BitmapFont bf, Batch batch, int x, int y, Color[] colors, String ... lines)
+	{		
 		if(lines.length != colors.length)
 		{
 			System.err.println("Les mots à afficher n'ont pas leur équivalent en couleurs");

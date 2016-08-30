@@ -39,7 +39,7 @@ public class WebBrowser
 	
 	private void draw404(Batch batch, int x, int y) 
 	{
-		Font.terminalRed.draw(batch, "ERROR 404", x + 4, y - 4);		
+		Font.terminal.draw(batch, "ERROR 404", x + 4, y - 4);		
 	}
 
 	public void navigate(String url)

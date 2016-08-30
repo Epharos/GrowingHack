@@ -13,13 +13,14 @@ import fr.growinghack.GrowingHack;
 import fr.growinghack.command.Command;
 import fr.growinghack.os.OS;
 import fr.growinghack.packets.PacketCommand;
+import fr.growinghack.ui.MulticolorLine;
 import fr.growinghack.util.Font;
 
 public class Terminal extends Application
 {
 	public Texture background = new Texture(Gdx.files.internal("ui/backgroundterminal.png"));
 	
-	private static List<String> lines = new ArrayList<String>();
+	private static List<MulticolorLine> lines = new ArrayList<MulticolorLine>();
 	private static String currentLine = "";
 	
 	private static int scrollLine = 0;
@@ -27,10 +28,12 @@ public class Terminal extends Application
 	
 	public static boolean freeze = false;
 	
+	private String server = "root";
+	
 	public Terminal()
 	{
 		Terminal.lines.clear();
-		Terminal.addLines("", "");
+		Terminal.addLines("");
 		Terminal.currentLine = "";
 		this.setDimension(800, 563);
 		this.minHeight = 563;
@@ -41,11 +44,19 @@ public class Terminal extends Application
 		this.y2 = this.y;
 	}
 	
+	public static void addLines(MulticolorLine ... s1)
+	{
+		for(MulticolorLine s : s1)
+		{
+			Terminal.lines.add(s);
+		}
+	}
+	
 	public static void addLines(String ... s1)
 	{
 		for(String s : s1)
 		{
-			Terminal.lines.add(s);
+			Terminal.lines.add(new MulticolorLine(Font.terminal, Color.WHITE, s));
 		}
 	}
 	
@@ -84,7 +95,9 @@ public class Terminal extends Application
 		
 		if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER) && !Terminal.freeze)
 		{
-			Terminal.addLines(GrowingHack.currentUser.username + ":~$ " + Terminal.currentLine);
+			Terminal.addLines(new MulticolorLine(Font.terminal, 
+					new Color[] {Color.WHITE, Color.RED, Color.WHITE},
+					GrowingHack.currentUser.username + "@",this.server, ":~$ " + Terminal.currentLine));
 			
 			if(Command.getCommand(Terminal.currentLine.split(" ")[0]) != null)
 			{
@@ -157,23 +170,20 @@ public class Terminal extends Application
 		
 		if(!Terminal.lines.isEmpty())
 		{
-			for(i = 0 ; i < (Terminal.lines.size() < 22 ? Terminal.lines.size() : 22) ; i++)
+			for(i = 0 ; i < (Terminal.lines.size() < 21 ? Terminal.lines.size() : 21) ; i++)
 			{
-				Font.terminalWhite.draw(batch, Terminal.lines.get(Terminal.lines.size() - (Terminal.lines.size() < 22 ? Terminal.lines.size() : 22) + i - Terminal.drawBetween), this.x + 4, Gdx.graphics.getHeight() - this.y - 22 * i - 4 - 24);
+				Terminal.lines.get(Terminal.lines.size() - (Terminal.lines.size() < 21 ? Terminal.lines.size() : 21) + i - Terminal.drawBetween).drawMulticolor(batch, this.x + 4, Gdx.graphics.getHeight() - this.y - 19 * (i + 1) - 4 * (i + 1) - 2);
 			}
 		}
 		
-		Font.drawMultiColor(Font.terminalWhite, new String[]
-				{
-						GrowingHack.currentUser.username + "@",
-						"Server1 ",
-						":~$ " + Terminal.currentLine
-				}, batch, this.x + 4, Gdx.graphics.getHeight() - this.y - (i + 1) * 19 - (4 * (i + 1)) - 3 + 12, Color.WHITE, Color.RED, Color.WHITE);
+		Font.drawMulticolor(Font.terminal, batch, this.x + 4, Gdx.graphics.getHeight() - this.y - (i + 2) * 19 - (4 * (i + 2)) + 21,
+				new Color[] {Color.WHITE, Color.RED, Color.WHITE},
+				GrowingHack.currentUser.username + "@",this.server, ":~$ " + Terminal.currentLine);
 	}
 	
 	public String getAppName() 
 	{
-		return "Terminal de commande";
+		return GrowingHack.currentUser.username + "@" + this.server + " - Terminal";
 	}
 	
 	public boolean resizable()
