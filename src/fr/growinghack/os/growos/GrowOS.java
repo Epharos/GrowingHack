@@ -1,6 +1,7 @@
 package fr.growinghack.os.growos;
 
 import java.io.File;
+import java.sql.Date;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -25,11 +26,12 @@ import fr.growinghack.util.Timer;
 
 public class GrowOS extends OS 
 {		
-	//public ButtonLabel off = new ButtonLabel(Gdx.graphics.getWidth() - (int) Font.getWidth("OFF", Font.getFont(Font.growing, 27)) - 60, Gdx.graphics.getHeight() - 7, "OFF", Font.getFont(Font.hack, 27), Font.getFont(Font.growing, 27));
-	public ButtonLabel settings = new ButtonLabel(Gdx.graphics.getWidth() - (int) Font.getWidth("OFF", Font.getFont(Font.growing, 27)) - 60 - (int) Font.getWidth("PARAMETRES", Font.getFont(Font.growing, 27)) - 20, Gdx.graphics.getHeight() - 7, "PARAMETRES", Font.getFont(Font.hack, 27), Font.getFont(Font.growing, 27));
-	public ButtonLabel ping = new ButtonLabel(Gdx.graphics.getWidth() - (int) Font.getWidth("OFF", Font.getFont(Font.growing, 27)) - 60 - (int) Font.getWidth("PARAMETRES", Font.getFont(Font.growing, 27)) - (int) Font.getWidth("000 MS", Font.getFont(Font.growing, 27)) - 40, Gdx.graphics.getHeight() - 7, "PING", Font.getFont(Font.hack, 27), Font.getFont(Font.growing, 27));
+//	public ButtonLabel settings = new ButtonLabel(Gdx.graphics.getWidth() - (int) Font.getWidth("OFF", Font.getFont(Font.growing, 27)) - 60 - (int) Font.getWidth("PARAMETRES", Font.getFont(Font.growing, 27)) - 20, Gdx.graphics.getHeight() - 7, "PARAMETRES", Font.getFont(Font.hack, 27), Font.getFont(Font.growing, 27));
+	//public ButtonLabel ping = new ButtonLabel(Gdx.graphics.getWidth() - (int) Font.getWidth("OFF", Font.getFont(Font.growing, 27)) - 60 - (int) Font.getWidth("PARAMETRES", Font.getFont(Font.growing, 27)) - (int) Font.getWidth("000 MS", Font.getFont(Font.growing, 27)) - 40, Gdx.graphics.getHeight() - 7, "PING", Font.getFont(Font.hack, 27), Font.getFont(Font.growing, 27));
 	
 	private Texture offButton = new Texture(Gdx.files.internal("ui/off.png"));
+	private Texture backgroundTache = new Texture(Gdx.files.internal("ui/backgroundterminal.png"));
+	private Texture volume = new Texture(Gdx.files.internal("ui/volume.png"));
 	
     private File file = new File("cache/" + GrowingHack.currentUser.username + ".jpg");    
     private Texture userImage;
@@ -83,29 +85,30 @@ public class GrowOS extends OS
 		Gdx.input.setInputProcessor(this.stage);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void render(Batch batch, int mouseX, int mouseY) 
 	{			
 		Timer.update(Gdx.graphics.getDeltaTime());
 		
-		batch.setColor(batch.getColor().r, batch.getColor().g, batch.getColor().b, 0.40f);
+		batch.setColor(batch.getColor().r, batch.getColor().g, batch.getColor().b, 1f);
 		
 		for(int i = 0 ; i < Gdx.graphics.getWidth() ; i++)
 		{
-			for(int j = 0 ; j < 36 ; j++)
+			for(int j = 0 ; j < 25 ; j++)
 			{
-				batch.draw(Button.inside, i, Gdx.graphics.getHeight() - j);
+				batch.draw(this.backgroundTache, i, Gdx.graphics.getHeight() - j);
 			}
 		}
 		batch.setColor(batch.getColor().r, batch.getColor().g, batch.getColor().b, 1f);
 		
-		int xB = Gdx.graphics.getWidth() - 80;
-		int yB =  Gdx.graphics.getHeight() - 32;
+		int xB = Gdx.graphics.getWidth() - 77;
+		int yB =  Gdx.graphics.getHeight() - 22;
 		Color origin = batch.getColor();
 		
 		if ((mouseX > xB && mouseX < (xB + offButton.getWidth()) && mouseY < offButton.getHeight() && mouseY > 0))
 		{
 			batch.setColor(1f, 0.80f, 0.54f, 1f);
-			batch.draw(offButton, xB, yB, 28, 28);
+			batch.draw(offButton, xB, yB, 20, 20);
 			batch.setColor(1f, 1f, 1f, 1f);
 			if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) 
 			{
@@ -115,27 +118,25 @@ public class GrowOS extends OS
 		else
 		{
 			batch.setColor(origin.r, origin.g, origin.b, 1f);
-			batch.draw(offButton, xB, yB, 28, 28);
+			batch.draw(offButton, xB, yB, 20, 20);
 		}
-		//trest
-		Font.getFont(Font.hack, 27).draw(batch, "RANG ", 4, Gdx.graphics.getHeight() - 7);
-		Font.getFont(Font.growing, 27).draw(batch, String.valueOf(GrowingHack.currentUser.level), Font.getWidth("RANG ", Font.getFont(Font.hack, 27)) + 4, Gdx.graphics.getHeight() - 7);
+		java.util.Date date = new java.util.Date();
+		Font.terminal1.draw(batch, date.getHours() + ":" + date.getMinutes(), Gdx.graphics.getWidth() - 140, Gdx.graphics.getHeight() - 6);
+
+		batch.setColor(1f, 1f, 1f, 1f);
+		batch.draw(this.volume, Gdx.graphics.getWidth() - 170, Gdx.graphics.getHeight() - 22, 20, 20);
 		
-		Font.getFont(Font.hack, 27).draw(batch, "CASH", 100, Gdx.graphics.getHeight() - 7);
-		Font.getFont(Font.growing, 27).draw(batch, GrowingHack.currentUser.money + "$", 100 + Font.getWidth("CASH ", Font.getFont(Font.hack, 27)), Gdx.graphics.getHeight() - 7);
+		Font.terminal1.draw(batch, this.getName(), 4, Gdx.graphics.getHeight() - 5);
+//		Font.getFont(Font.hack, 27).draw(batch, "RANG ", 4, Gdx.graphics.getHeight() - 7);
+//		Font.getFont(Font.growing, 27).draw(batch, String.valueOf(GrowingHack.currentUser.level), Font.getWidth("RANG ", Font.getFont(Font.hack, 27)) + 4, Gdx.graphics.getHeight() - 7);
+//		
+//		Font.getFont(Font.hack, 27).draw(batch, "CASH", 100, Gdx.graphics.getHeight() - 7);
+//		Font.getFont(Font.growing, 27).draw(batch, GrowingHack.currentUser.money + "$", 100 + Font.getWidth("CASH ", Font.getFont(Font.hack, 27)), Gdx.graphics.getHeight() - 7);
+//		
+	//	this.settings.draw(batch, mouseX, mouseY);
+	//  this.ping.draw(batch, mouseX, mouseY);
 		
-	//	this.off.draw(batch, mouseX, mouseY);
-		this.settings.draw(batch, mouseX, mouseY);
-		this.ping.draw(batch, mouseX, mouseY);
-		
-		try
-		{
-			batch.draw(this.userImage, Gdx.graphics.getWidth() - 40, Gdx.graphics.getHeight() - 33, 30, 30);
-		}
-		catch(Exception e)
-		{
-			
-		}
+		batch.draw(this.userImage, Gdx.graphics.getWidth() - 40, Gdx.graphics.getHeight() - 24, 23, 23);
 		
 		int appInALine = Gdx.graphics.getWidth() / 134 - 1;
 		int sizeBetweenAppAndBorderLeft = (Gdx.graphics.getWidth() - 134 * appInALine) / 2;
@@ -209,11 +210,6 @@ public class GrowOS extends OS
 			this.applications.get(this.currentApplication).getMouseAction(mouseX, mouseY, this);
 		}
 		
-//		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT) && this.off.isButtonOver(mouseX, mouseY))
-//		{
-//			Gdx.app.exit();
-//		}
-//		
 		this.timerPing++;
 		
 		if(this.timerPing >= 180)
@@ -222,8 +218,8 @@ public class GrowOS extends OS
 			GrowingHack.instance.client.client.sendTCP(new PacketPing());
 		}
 		
-		this.ping.text = GrowingHack.currentUser.ping + " MS";
-		this.ping.x = Gdx.graphics.getWidth() - (int) Font.getWidth("OFF", Font.getFont(Font.growing, 27)) - 60 - (int) Font.getWidth("PARAMETRES", Font.getFont(Font.growing, 27)) - (int) Font.getWidth(GrowingHack.currentUser.ping + " MS", Font.getFont(Font.growing, 27)) - 40;
+		//this.ping.text = GrowingHack.currentUser.ping + " MS";
+		//this.ping.x = Gdx.graphics.getWidth() - (int) Font.getWidth("OFF", Font.getFont(Font.growing, 27)) - 60 - (int) Font.getWidth("PARAMETRES", Font.getFont(Font.growing, 27)) - (int) Font.getWidth(GrowingHack.currentUser.ping + " MS", Font.getFont(Font.growing, 27)) - 40;
 	}
 	
 	public static String getAppName(String name)

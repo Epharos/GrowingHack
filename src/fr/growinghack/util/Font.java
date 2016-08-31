@@ -20,6 +20,7 @@ public class Font
 	public static BitmapFont buttonWindowOver;
 	
 	public static BitmapFont terminal;
+	public static BitmapFont terminal1;
 	
 	public static BitmapFont growingTitle;
 	public static BitmapFont hackTitle;
@@ -44,6 +45,7 @@ public class Font
 		Font.buttonWindowOver = Font.createFont("CeLb", 18, new Color(0.75f, 0.75f, 0.75f, 1f));
 		
 		Font.terminal = Font.createFont("Consolas", 15, Color.WHITE);
+		Font.terminal1 = Font.createFont("Consolas", 18, Color.WHITE);
 		
 		Font.growingTitle = Font.createFont("CeLb", 48, new Color(1f, 0.73f, 0.32f, 1f));
 		Font.hackTitle = Font.createFont("CeLb", 48, new Color(0.75f, 0.75f, 0.75f, 1f));

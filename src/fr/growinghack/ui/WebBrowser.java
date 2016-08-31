@@ -2,6 +2,8 @@ package fr.growinghack.ui;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 import fr.growinghack.util.Font;
@@ -39,7 +41,7 @@ public class WebBrowser
 	
 	private void draw404(Batch batch, int x, int y) 
 	{
-		Font.terminal.draw(batch, "ERROR 404", x + 4, y - 4);		
+		Font.drawMulticolor(Font.getFont(Font.usual, 70), batch, Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, new Color[] {Color.RED}, new String[] {"ERROR 404"});
 	}
 
 	public void navigate(String url)
