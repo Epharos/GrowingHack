@@ -1,7 +1,6 @@
-package fr.growinghack.os.growos;
+package fr.growinghack.os.ilak;
 
 import java.io.File;
-import java.sql.Date;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -20,15 +19,11 @@ import fr.growinghack.icon.WebBrowser;
 import fr.growinghack.os.OS;
 import fr.growinghack.packets.PacketPing;
 import fr.growinghack.ui.Button;
-import fr.growinghack.ui.ButtonLabel;
 import fr.growinghack.util.Font;
 import fr.growinghack.util.Timer;
 
-public class GrowOS extends OS 
-{		
-//	public ButtonLabel settings = new ButtonLabel(Gdx.graphics.getWidth() - (int) Font.getWidth("OFF", Font.getFont(Font.growing, 27)) - 60 - (int) Font.getWidth("PARAMETRES", Font.getFont(Font.growing, 27)) - 20, Gdx.graphics.getHeight() - 7, "PARAMETRES", Font.getFont(Font.hack, 27), Font.getFont(Font.growing, 27));
-	//public ButtonLabel ping = new ButtonLabel(Gdx.graphics.getWidth() - (int) Font.getWidth("OFF", Font.getFont(Font.growing, 27)) - 60 - (int) Font.getWidth("PARAMETRES", Font.getFont(Font.growing, 27)) - (int) Font.getWidth("000 MS", Font.getFont(Font.growing, 27)) - 40, Gdx.graphics.getHeight() - 7, "PING", Font.getFont(Font.hack, 27), Font.getFont(Font.growing, 27));
-	
+public class IlakOS extends OS 
+{			
 	private Texture offButton = new Texture(Gdx.files.internal("ui/off.png"));
 	private Texture backgroundTache = new Texture(Gdx.files.internal("ui/backgroundterminal.png"));
 	private Texture volume = new Texture(Gdx.files.internal("ui/volume.png"));
@@ -40,7 +35,7 @@ public class GrowOS extends OS
     
 	public Stage stage;
     
-	public GrowOS()
+	public IlakOS()
 	{
 		GrowingHack.currentOS = this;
 		
@@ -99,11 +94,16 @@ public class GrowOS extends OS
 				batch.draw(this.backgroundTache, i, Gdx.graphics.getHeight() - j);
 			}
 		}
+		
 		batch.setColor(batch.getColor().r, batch.getColor().g, batch.getColor().b, 1f);
 		
-		int xB = Gdx.graphics.getWidth() - 77;
+		int nameWidth = (int) Font.getWidth(GrowingHack.currentUser.username, Font.terminal1) + 4;
+		
+		int xB = Gdx.graphics.getWidth() - 77 - nameWidth;
 		int yB =  Gdx.graphics.getHeight() - 22;
 		Color origin = batch.getColor();
+		
+		Font.terminal1.draw(batch, GrowingHack.currentUser.username, xB + 31, Gdx.graphics.getHeight() - 6);
 		
 		if ((mouseX > xB && mouseX < (xB + offButton.getWidth()) && mouseY < offButton.getHeight() && mouseY > 0))
 		{
@@ -120,21 +120,14 @@ public class GrowOS extends OS
 			batch.setColor(origin.r, origin.g, origin.b, 1f);
 			batch.draw(offButton, xB, yB, 20, 20);
 		}
-		java.util.Date date = new java.util.Date();
-		Font.terminal1.draw(batch, date.getHours() + ":" + date.getMinutes(), Gdx.graphics.getWidth() - 140, Gdx.graphics.getHeight() - 6);
+		
+		java.util.Date date = new java.util.Date();		
+		Font.terminal1.draw(batch, date.getHours() + ":" + date.getMinutes(), Gdx.graphics.getWidth() - 140 - nameWidth, Gdx.graphics.getHeight() - 6);
 
 		batch.setColor(1f, 1f, 1f, 1f);
-		batch.draw(this.volume, Gdx.graphics.getWidth() - 170, Gdx.graphics.getHeight() - 22, 20, 20);
+		batch.draw(this.volume, Gdx.graphics.getWidth() - 170 - nameWidth, Gdx.graphics.getHeight() - 22, 20, 20);
 		
 		Font.terminal1.draw(batch, this.getName(), 4, Gdx.graphics.getHeight() - 5);
-//		Font.getFont(Font.hack, 27).draw(batch, "RANG ", 4, Gdx.graphics.getHeight() - 7);
-//		Font.getFont(Font.growing, 27).draw(batch, String.valueOf(GrowingHack.currentUser.level), Font.getWidth("RANG ", Font.getFont(Font.hack, 27)) + 4, Gdx.graphics.getHeight() - 7);
-//		
-//		Font.getFont(Font.hack, 27).draw(batch, "CASH", 100, Gdx.graphics.getHeight() - 7);
-//		Font.getFont(Font.growing, 27).draw(batch, GrowingHack.currentUser.money + "$", 100 + Font.getWidth("CASH ", Font.getFont(Font.hack, 27)), Gdx.graphics.getHeight() - 7);
-//		
-	//	this.settings.draw(batch, mouseX, mouseY);
-	//  this.ping.draw(batch, mouseX, mouseY);
 		
 		batch.draw(this.userImage, Gdx.graphics.getWidth() - 40, Gdx.graphics.getHeight() - 24, 23, 23);
 		
@@ -217,9 +210,6 @@ public class GrowOS extends OS
 			this.timerPing = 0;
 			GrowingHack.instance.client.client.sendTCP(new PacketPing());
 		}
-		
-		//this.ping.text = GrowingHack.currentUser.ping + " MS";
-		//this.ping.x = Gdx.graphics.getWidth() - (int) Font.getWidth("OFF", Font.getFont(Font.growing, 27)) - 60 - (int) Font.getWidth("PARAMETRES", Font.getFont(Font.growing, 27)) - (int) Font.getWidth(GrowingHack.currentUser.ping + " MS", Font.getFont(Font.growing, 27)) - 40;
 	}
 	
 	public static String getAppName(String name)
@@ -248,6 +238,6 @@ public class GrowOS extends OS
 
 	public String getName() 
 	{
-		return "GrowOS";
+		return "IlakOS";
 	}
 }

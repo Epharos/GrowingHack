@@ -9,13 +9,13 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import fr.growinghack.GrowingHack;
-import fr.growinghack.os.growos.GrowOS;
+import fr.growinghack.os.ilak.IlakOS;
 import fr.growinghack.ui.Button;
 import fr.growinghack.ui.TextField;
 
 public class OSScreen implements Screen 
 {
-	private GrowOS growOS = new GrowOS();
+	private IlakOS ilakOS = new IlakOS();
 	
 	@SuppressWarnings("unused")
 	private GrowingHack growingHack;
@@ -49,7 +49,7 @@ public class OSScreen implements Screen
 	    this.batch.setProjectionMatrix(this.camera.combined);
 	    this.batch.begin();
 	    this.sprite.draw(this.batch);
-	    this.growOS.render(batch, mouseX, mouseY);
+	    this.ilakOS.render(batch, mouseX, mouseY);
 	    
 	    this.batch.end();
 	}
