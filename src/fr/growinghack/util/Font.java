@@ -35,6 +35,8 @@ public class Font
 	public static BitmapFont[] growing = new BitmapFont[64];
 	public static BitmapFont[] hack = new BitmapFont[64];
 	
+	public static final String allChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+	
 	public Font()
 	{	
 		Font.title = Font.createFont("CeLb", 23, Color.WHITE);

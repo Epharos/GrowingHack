@@ -26,6 +26,8 @@ public class WebBrowser extends Application
 		this.webBrowser = new fr.growinghack.ui.WebBrowser(0, 0, this.width, this.height - 64, this);
 		this.x = 200;
 		this.y = 200;
+		this.x2 = this.x;
+		this.y2 = this.y;
 		this.webBrowser.navigate(this.url.text);
 		
 		this.stage = new Stage();

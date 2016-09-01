@@ -5,10 +5,12 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
+import fr.growinghack.GrowingHack;
 import fr.growinghack.os.OS;
 import fr.growinghack.ui.Button;
 import fr.growinghack.ui.ButtonLabel;
 import fr.growinghack.util.Font;
+import fr.growinghack.util.Timer;
 
 public abstract class Application 
 {
@@ -17,18 +19,15 @@ public abstract class Application
 	 * Aucune documentation
 	 */
 	
-	public int x, y;
-	public int x2, y2;
-	public int width, height;
-	public int width2, height2;
-	public int minWidth, minHeight;
-	
-	protected ButtonLabel close = new ButtonLabel(this.x + this.width - 4 - (int) Font.getWidth("x", Font.buttonWindow), Gdx.graphics.getHeight() - this.y - 1, "x", Font.buttonWindow, Font.buttonWindowOver);
-	protected ButtonLabel fullscreen = new ButtonLabel(this.x + this.width - 4 - (int) Font.getWidth("x +", Font.buttonWindow), Gdx.graphics.getHeight() - this.y - 1, "+", Font.buttonWindow, Font.buttonWindowOver);
-	protected ButtonLabel reduce = new ButtonLabel(this.x + this.width - 4 - (int) Font.getWidth("x + -", Font.buttonWindow), Gdx.graphics.getHeight() - this.y - 1, "-", Font.buttonWindow, Font.buttonWindowOver);
+	public int x, y; /** Position affichée à l'écran **/
+	public int x2, y2; /** Sauvegarde de la position avant maximisation **/
+	public int width, height; /** Largeur et hauteur affichée à l'écran **/
+	public int width2, height2; /** Sauvegarde de la largeur et de la hauteur affichée à l'écran **/
+	public int minWidth, minHeight; /** Largeur et hauteur minimale **/
 	
 	public boolean visible = true;
 	public boolean isFullscreen = false;
+	public boolean clicked = false;
 	
 	private boolean move = false;
 	private boolean resize = false;
@@ -36,9 +35,14 @@ public abstract class Application
 	
 	public int prevMouseX = -1;
 	public int prevMouseY = -1;
-	private Texture closeTextureButton = new Texture(Gdx.files.internal("ui/close.png"));
-	private Texture fullscreenTextureButton = new Texture(Gdx.files.internal("ui/fullscreen.png"));
-	private Texture reduceTextureButton = new Texture(Gdx.files.internal("ui/reduce.png"));
+	
+	/** Textures des boutons de réduction, maximisation et fermeture de l'application **/
+	protected ButtonLabel close = new ButtonLabel(this.x + this.width - 4 - (int) Font.getWidth("x", Font.buttonWindow), Gdx.graphics.getHeight() - this.y - 1, "x", Font.buttonWindow, Font.buttonWindowOver);
+	protected ButtonLabel fullscreen = new ButtonLabel(this.x + this.width - 4 - (int) Font.getWidth("x +", Font.buttonWindow), Gdx.graphics.getHeight() - this.y - 1, "+", Font.buttonWindow, Font.buttonWindowOver);
+	protected ButtonLabel reduce = new ButtonLabel(this.x + this.width - 4 - (int) Font.getWidth("x + -", Font.buttonWindow), Gdx.graphics.getHeight() - this.y - 1, "-", Font.buttonWindow, Font.buttonWindowOver);
+	protected Texture closeTextureButton = new Texture(Gdx.files.internal("ui/close.png"));
+	protected Texture fullscreenTextureButton = new Texture(Gdx.files.internal("ui/fullscreen.png"));
+	protected Texture reduceTextureButton = new Texture(Gdx.files.internal("ui/reduce.png"));
 	
 	public Application()
 	{
@@ -53,20 +57,25 @@ public abstract class Application
 	
 	public abstract void render(Batch batch, int mouseX, int mouseY);
 	
-	public void renderApp(Batch batch, int mouseX, int mouseY, OS os)
+	public void pr(Object o)
 	{
+		System.out.println(o);
+	}
+	
+	public void renderApp(Batch batch, int mouseX, int mouseY, OS os)
+	{		
 		if(this.visible)
-		{
+		{	
 			this.drawBackground(batch, mouseX, mouseY);
 			this.render(batch, mouseX, mouseY);
 			this.drawForeground(batch, mouseX, mouseY, os);
 			
 			if(this.isFullscreen)
 			{
-				this.width = Gdx.graphics.getWidth() - 40;
-				this.height = Gdx.graphics.getHeight() - 40;
-				this.x = 2;
-				this.y = 38;
+				this.width = Gdx.graphics.getWidth();
+				this.height = Gdx.graphics.getHeight() - 26;
+				this.x = 0;
+				this.y = 27;
 			}
 			else
 			{
@@ -74,6 +83,8 @@ public abstract class Application
 				this.setHeight(this.height2);
 				this.x = this.x2;
 				this.y = this.y2;
+				this.x2 = this.x;
+				this.y2 = this.y;
 			}
 			
 			if(this.width < this.minWidth)
@@ -106,9 +117,19 @@ public abstract class Application
 			os.currentApplication = 0;
 		}
 		
-		if(this.fullscreen.isButtonOver(mouseX, mouseY) && Gdx.input.isButtonPressed(Input.Buttons.LEFT))
+		if(this.fullscreen.isButtonOver(mouseX, mouseY) && Gdx.input.isButtonPressed(Input.Buttons.LEFT) && !this.clicked)
 		{
+			this.clicked = true;
 			this.isFullscreen = !this.isFullscreen;
+			
+			new Timer("clicked", 1)
+			{
+				public void execute()
+				{
+					GrowingHack.currentOS.applications.get(GrowingHack.currentOS.currentApplication).clicked = false;
+					this.kill();
+				}
+			};
 		}
 		
 		if(this.reduce.isButtonOver(mouseX, mouseY) && Gdx.input.isButtonPressed(Input.Buttons.LEFT))
@@ -116,7 +137,7 @@ public abstract class Application
 			this.visible = false;
 		}
 		
-		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT))
+		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT) && (!this.reduce.isButtonOver(mouseX, mouseY) && !this.close.isButtonOver(mouseX, mouseY) && !this.fullscreen.isButtonOver(mouseX, mouseY)) && !this.isFullscreen)
 		{
 			if((mouseX >= x + 6 && mouseX <= x + width - 6) && (mouseY >= y + 6 && mouseY <= y + 24) && !this.resize)
 			{
@@ -259,16 +280,10 @@ public abstract class Application
 	}
 	
 	public void drawBackground(Batch batch, int mouseX, int mouseY)
-	{
-		batch.setColor(batch.getColor().r, batch.getColor().g, batch.getColor().b, 0.4f);
+	{		
+		batch.draw(Button.inside, this.x, Gdx.graphics.getHeight() - this.y - 22, this.width, 24);
 		
-		batch.draw(Button.inside, this.x - 4, Gdx.graphics.getHeight() - 4 - this.y - this.height, this.width + 8, this.height + 8);
-		
-		batch.setColor(batch.getColor().r, batch.getColor().g, batch.getColor().b, 1f);
-		
-		batch.draw(Button.inside, this.x, Gdx.graphics.getHeight() - this.y - this.height, this.width, this.height);
-		
-		batch.draw(Button.border, this.x + 2, Gdx.graphics.getHeight() - this.y - this.height + 2, this.width - 4, this.height - 24);
+		batch.draw(Button.border, this.x, Gdx.graphics.getHeight() - this.y - this.height + 2, this.width, this.height - 24);
 	}
 	
 	public void drawForeground(Batch batch, int mouseX, int mouseY, OS os)
@@ -277,18 +292,24 @@ public abstract class Application
 		
 		this.close.x = this.x + this.width - 5 - (int) Font.getWidth("x", Font.buttonWindow);
 		this.close.y = Gdx.graphics.getHeight() - this.y - 1;
-		this.close.draw(batch, mouseX, mouseY);
 		batch.draw(closeTextureButton, close.x - 4, close.y - 16, 13, 13);
 		
-		this.fullscreen.x = this.x + this.width - 15 - (int) Font.getWidth("x +", Font.buttonWindow);
-		this.fullscreen.y = Gdx.graphics.getHeight() - this.y - 3;
-		this.fullscreen.draw(batch, mouseX, mouseY);
-		batch.draw(fullscreenTextureButton, fullscreen.x - 2, fullscreen.y - 14, 13, 13);
+		if(this.resizable())
+		{
+			this.fullscreen.x = this.x + this.width - 15 - (int) Font.getWidth("x +", Font.buttonWindow);
+			this.fullscreen.y = Gdx.graphics.getHeight() - this.y - 3;
+			batch.draw(fullscreenTextureButton, fullscreen.x - 2, fullscreen.y - 14, 13, 13);
 		
-		this.reduce.x = this.x + this.width - 25 - (int) Font.getWidth("x + -", Font.buttonWindow);
-		this.reduce.y = Gdx.graphics.getHeight() - this.y - 3;
-		this.reduce.draw(batch, mouseX, mouseY);
-		batch.draw(reduceTextureButton, reduce.x - 5, reduce.y - 14, 13, 13);
+			this.reduce.x = this.x + this.width - 25 - (int) Font.getWidth("x + -", Font.buttonWindow);
+			this.reduce.y = Gdx.graphics.getHeight() - this.y - 3;
+			batch.draw(reduceTextureButton, reduce.x - 5, reduce.y - 14, 13, 13);
+		}
+		else
+		{
+			this.reduce.x = this.x + this.width - 15 - (int) Font.getWidth("x -", Font.buttonWindow);
+			this.reduce.y = Gdx.graphics.getHeight() - this.y - 3;
+			batch.draw(reduceTextureButton, reduce.x - 5, reduce.y - 14, 13, 13);
+		}
 	}
 	
 	public abstract String getAppName();

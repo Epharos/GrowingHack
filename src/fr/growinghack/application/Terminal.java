@@ -13,6 +13,7 @@ import fr.growinghack.GrowingHack;
 import fr.growinghack.command.Command;
 import fr.growinghack.os.OS;
 import fr.growinghack.packets.PacketCommand;
+import fr.growinghack.ui.Button;
 import fr.growinghack.ui.MulticolorLine;
 import fr.growinghack.util.Font;
 
@@ -89,9 +90,16 @@ public class Terminal extends Application
 		}
 	}
 	
+	public void drawBackground(Batch batch, int mouseX, int mouseY)
+	{		
+		batch.draw(Button.inside, this.x, Gdx.graphics.getHeight() - this.y - 22, this.width, 24);
+		batch.draw(this.background, this.x, Gdx.graphics.getHeight() - this.y - this.height + 2, this.width, this.height - 24);
+//		batch.draw(Button.border, this.x, Gdx.graphics.getHeight() - this.y - this.height + 2, this.width, this.height - 24);
+	}
+	
 	public void render(Batch batch, int mouseX, int mouseY) 
 	{
-		batch.draw(this.background, this.x + 2, Gdx.graphics.getHeight() - this.y - this.height + 2, this.width - 4, this.height - 24);
+		
 		
 		if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER) && !Terminal.freeze)
 		{
