@@ -4,11 +4,6 @@ import fr.growinghack.application.Terminal;
 
 public abstract class Command 
 {
-	
-	/** @TODO A retravailler !
-	 * Aucune documentation
-	 */
-	
 	public String command = "";
 	public boolean client = false, server = false;
 	

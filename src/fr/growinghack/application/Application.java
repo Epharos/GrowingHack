@@ -14,11 +14,6 @@ import fr.growinghack.util.Timer;
 
 public abstract class Application 
 {
-	
-	/** @TODO retravailler de fond en comble
-	 * Aucune documentation
-	 */
-	
 	public int x, y; /** Position affichée à l'écran **/
 	public int x2, y2; /** Sauvegarde de la position avant maximisation **/
 	public int width, height; /** Largeur et hauteur affichée à l'écran **/

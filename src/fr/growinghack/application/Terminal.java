@@ -35,6 +35,9 @@ public class Terminal extends Application
 	{
 		Terminal.lines.clear();
 		Terminal.addLines("");
+		Terminal.addLines(new MulticolorLine(Font.terminal, Color.CYAN, "Growing Hack Terminal"));
+		Terminal.addLines(new MulticolorLine(Font.terminal, Color.CYAN, "Acces to " + this.server));
+		Terminal.addLines("");
 		Terminal.currentLine = "";
 		this.setDimension(800, 563);
 		this.minHeight = 563;
@@ -94,13 +97,10 @@ public class Terminal extends Application
 	{		
 		batch.draw(Button.inside, this.x, Gdx.graphics.getHeight() - this.y - 22, this.width, 24);
 		batch.draw(this.background, this.x, Gdx.graphics.getHeight() - this.y - this.height + 2, this.width, this.height - 24);
-//		batch.draw(Button.border, this.x, Gdx.graphics.getHeight() - this.y - this.height + 2, this.width, this.height - 24);
 	}
 	
 	public void render(Batch batch, int mouseX, int mouseY) 
 	{
-		
-		
 		if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER) && !Terminal.freeze)
 		{
 			Terminal.addLines(new MulticolorLine(Font.terminal, 
@@ -180,13 +180,13 @@ public class Terminal extends Application
 		{
 			for(i = 0 ; i < (Terminal.lines.size() < 21 ? Terminal.lines.size() : 21) ; i++)
 			{
-				Terminal.lines.get(Terminal.lines.size() - (Terminal.lines.size() < 21 ? Terminal.lines.size() : 21) + i - Terminal.drawBetween).drawMulticolor(batch, this.x + 4, Gdx.graphics.getHeight() - this.y - 19 * (i + 1) - 4 * (i + 1) - 2);
+				Terminal.lines.get(Terminal.lines.size() - (Terminal.lines.size() < 21 ? Terminal.lines.size() : 21) + i - Terminal.drawBetween).drawMulticolor(batch, this.x + 4, Gdx.graphics.getHeight() - this.y - 15 * (i + 1) - 4 * (i + 1) + 9);
 			}
 		}
 		
-		Font.drawMulticolor(Font.terminal, batch, this.x + 4, Gdx.graphics.getHeight() - this.y - (i + 2) * 19 - (4 * (i + 2)) + 21,
+		Font.drawMulticolor(Font.terminal, batch, this.x + 4, Gdx.graphics.getHeight() - this.y - (i + 2) * 15 - (4 * (i + 2)) + 28,
 				new Color[] {Color.WHITE, Color.RED, Color.WHITE},
-				GrowingHack.currentUser.username + "@",this.server, ":~$ " + Terminal.currentLine);
+				GrowingHack.currentUser.username + "@", this.server, ":~$ " + Terminal.currentLine);
 	}
 	
 	public String getAppName() 
