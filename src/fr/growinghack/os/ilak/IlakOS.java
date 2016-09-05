@@ -47,6 +47,7 @@ public class IlakOS extends OS
 		
 		this.icons.add(new Terminal());
 		this.icons.add(new WebBrowser());
+		this.icons.add(new Messagerie());
 		
 		this.stage = new Stage();
 		
