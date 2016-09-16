@@ -47,9 +47,6 @@ public class HandlerClient extends Handler
 		GrowingHack.currentUser.money = packet.money;
 		GrowingHack.currentUser.experience = packet.exp;
 		GrowingHack.currentUser.level = packet.level;
-		GrowingHack.currentUser.title = packet.title;
-		GrowingHack.currentUser.description = packet.description;
-		GrowingHack.currentUser.type = packet.type;
 		
 		BooleanConnexion.playerInfos = true;
 	}

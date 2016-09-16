@@ -1,12 +1,17 @@
 package fr.growinghack.files;
 
+import java.util.ArrayList;
+
 public abstract class File 
 {
-	public final boolean editable = true;
-	public final String extention;
+	public ArrayList<String> content = new ArrayList<String>();
 	
-	public File(String extention)
+	public File()
 	{
-		this.extention = extention;
+		
 	}
+	
+	public abstract String getExtention();
+	
+	public abstract void open();
 }

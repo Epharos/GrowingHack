@@ -14,6 +14,7 @@ import java.util.List;
 
 import fr.growinghack.GrowingHack;
 import fr.growinghack.command.Command;
+import fr.growinghack.server.API;
 import fr.growinghack.server.ConnectedPlayer;
 import fr.growinghack.util.IP;
 import fr.growinghack.util.ImageEncoding;
@@ -52,89 +53,11 @@ public class HandlerServer extends Handler
 	
 	public void handleClientInfos(PacketClientInfos packet, int connexionID) 
 	{
-		File user = new File("accounts/" + packet.username + "/informations.txt");
+		List<String> content = API.getPlayerInformations(packet.username);
 		
-		List<String> content = new ArrayList<String>();
-		
-		try 
-		{
-			InputStream is = new FileInputStream(user);
-			InputStreamReader isr = new InputStreamReader(is);
-			BufferedReader br = new BufferedReader(isr);
-			String line = "";
-			
-			try 
-			{
-				while((line = br.readLine()) != null)
-				{
-					content.add(line);
-				}
-			} 
-			catch (IOException e) 
-			{
-				e.printStackTrace();
-			}
-			
-			for(String s : content)
-			{
-				String[] values = s.split(":");
-				
-				if(values[0].equals("money"))
-				{
-					packet.money = Integer.valueOf(values[1]);
-				}
-				
-				if(values[0].equals("level"))
-				{
-					packet.level = Integer.valueOf(values[1]);
-				}
-				
-				if(values[0].equals("exp"))
-				{
-					packet.exp = Integer.valueOf(values[1]);
-				}
-				
-				if(values[0].equals("title"))
-				{
-					if(values[1] != null)
-					{
-						packet.title = values[1];
-					}
-					else
-					{
-						packet.title = "";
-					}
-				}
-				
-				if(values[0].equals("desc"))
-				{
-					if(values[1] != null)
-					{
-						if(values[1].length() > 256)
-						{
-							packet.description = values[1].substring(0, 256);
-						}
-						else
-						{
-							packet.description = values[1];
-						}
-					}
-					else
-					{
-						packet.description = "";
-					}
-				}
-				
-				if(values[0].equals("type"))
-				{
-					packet.type = Integer.valueOf(values[1]);
-				}
-			}
-		} 
-		catch (FileNotFoundException e) 
-		{
-			e.printStackTrace();
-		}
+		packet.money = Integer.valueOf((String) API.getPlayerInformation(content, "money"));
+		packet.level = Integer.valueOf((String)API.getPlayerInformation(content, "level"));
+		packet.exp = Integer.valueOf((String)API.getPlayerInformation(content, "exp"));
 		
 		GrowingHack.instance.server.server.sendToTCP(connexionID, packet);
 	}
@@ -321,6 +244,9 @@ public class HandlerServer extends Handler
 				bw2.write("ip:" + IP.generateIp());
 				
 				bw2.close();
+				
+				File user3 = new File("accounts/" + packet.username + "/contactslist.txt");
+				user3.createNewFile();
 				
 				if(!packet.useDefaultAvatar && packet.avatar == null)
 					ImageEncoding.bytesToImage(packet.avatar, new File("accounts/" + packet.username + "/avatar.jpg"), "jpg");

@@ -109,7 +109,7 @@ public class IlakOS extends OS
 		}
 		
 		java.util.Date date = new java.util.Date();		
-		Font.terminal1.draw(batch, date.getHours() + (date.getMinutes() < 10 ? ":0" : ":") + date.getMinutes(), Gdx.graphics.getWidth() - 140 - nameWidth, Gdx.graphics.getHeight() - 6);
+		Font.terminal1.draw(batch, (date.getHours() < 10 ? "0" : "") + date.getHours() + (date.getMinutes() < 10 ? ":0" : ":") + date.getMinutes(), Gdx.graphics.getWidth() - 140 - nameWidth, Gdx.graphics.getHeight() - 6);
 
 		batch.setColor(1f, 1f, 1f, 1f);
 		batch.draw(this.volume, Gdx.graphics.getWidth() - 170 - nameWidth, Gdx.graphics.getHeight() - 22, 20, 20);
