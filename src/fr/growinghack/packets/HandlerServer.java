@@ -64,55 +64,13 @@ public class HandlerServer extends Handler
 	
 	public void handleIP(PacketIP packet, int connexionID) 
 	{
-		File user = new File("accounts/" + packet.username + "/informations.txt");
+		List<String> content = API.getPlayerInformations(packet.username);
 		
-		List<String> content = new ArrayList<String>();
+		String ip = String.valueOf(API.getPlayerInformation(content, "ip"));
 		
-		try 
-		{
-			InputStream is = new FileInputStream(user);
-			InputStreamReader isr = new InputStreamReader(is);
-			BufferedReader br = new BufferedReader(isr);
-			String line = "";
-			
-			try 
-			{
-				while((line = br.readLine()) != null)
-				{
-					content.add(line);
-				}
-			} 
-			catch (IOException e) 
-			{
-				e.printStackTrace();
-			}
-			
-			for(String s : content)
-			{
-				String[] values = s.split(":");
-				String ip = "";
-				
-				if(values[0].equals("ip"))
-				{
-					ip = values[1];
-					
-					PacketTerminal packet1 = new PacketTerminal();
-					packet1.setLines("IP " + packet.username + " > " + ip, "");
-					GrowingHack.instance.server.server.sendToTCP(connexionID, packet1);
-					
-					if(packet.copy)
-					{
-						PacketClipboard packet2 = new PacketClipboard();
-						packet2.clipboard = ip;
-						GrowingHack.instance.server.server.sendToTCP(connexionID, packet2);
-					}
-				}
-			}
-		} 
-		catch (FileNotFoundException e) 
-		{
-			e.printStackTrace();
-		}
+		PacketTerminal packet1 = new PacketTerminal();
+		packet1.setLines("IP " + packet.username + " > " + ip, "");
+		GrowingHack.instance.server.server.sendToTCP(connexionID, packet1);
 	}
 	
 	public void handleUserImage(PacketUserImage packet, int connexionID) 
