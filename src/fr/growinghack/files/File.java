@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public abstract class File 
 {
 	public ArrayList<String> content = new ArrayList<String>();
+	public String name;
 	
 	public File()
 	{

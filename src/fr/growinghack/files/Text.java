@@ -1,7 +1,7 @@
 package fr.growinghack.files;
 
 public class Text extends File
-{
+{	
 	public String getExtention() 
 	{
 		return "txt";
