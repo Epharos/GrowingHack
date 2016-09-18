@@ -100,9 +100,12 @@ public class HandlerClient extends Handler
 		}
 	}
 	
-	public void handlerContact(PacketMessagerie packet, int connexionID) {
-		for (Application app : GrowingHack.currentOS.applications) {
-			if (app instanceof Messagerie) {
+	public void handleContact(PacketMessagerie packet, int connexionID) 
+	{
+		for (Application app : GrowingHack.currentOS.applications) 
+		{
+			if (app instanceof Messagerie) 
+			{
 				((Messagerie)app).contacts = packet.contacts;
 			}
 		}
