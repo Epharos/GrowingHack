@@ -22,6 +22,8 @@ public class Font
 	public static BitmapFont terminal;
 	public static BitmapFont terminal1;
 	
+	public static BitmapFont messagerieContact;
+	
 	public static BitmapFont growingTitle;
 	public static BitmapFont hackTitle;
 	public static BitmapFont growingItalic;
@@ -49,6 +51,7 @@ public class Font
 		Font.terminal = Font.createFont("Consolas", 15, Color.WHITE);
 		Font.terminal1 = Font.createFont("Consolas", 18, Color.WHITE);
 		
+		Font.messagerieContact = Font.createFont("Consolas", 18, Color.WHITE);
 		Font.growingTitle = Font.createFont("CeLb", 48, new Color(1f, 0.73f, 0.32f, 1f));
 		Font.hackTitle = Font.createFont("CeLb", 48, new Color(0.75f, 0.75f, 0.75f, 1f));
 		Font.growingItalic = Font.createFont("CeLib", 24, new Color(1f, 0.73f, 0.32f, 1f));
