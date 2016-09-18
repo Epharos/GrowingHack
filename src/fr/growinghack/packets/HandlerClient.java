@@ -87,14 +87,15 @@ public class HandlerClient extends Handler
 	
 	public void handleUserImage(PacketUserImage packet, int connexionID) 
 	{
+		File folder = new File("cache/");
 		File file = new File("cache/" + packet.username + ".jpg");
 		
-		if(!file.exists())
+		if(!folder.exists())
 		{
-			file.mkdir();
+			folder.mkdir();
 		}
 		
-		if(file.exists() && !packet.useDefaultImage)
+		if(!file.exists() && !packet.useDefaultImage)
 		{
 			ImageEncoding.bytesToImage(packet.image, file, "jpg");
 		}

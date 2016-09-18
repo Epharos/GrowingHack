@@ -1,5 +1,6 @@
 package fr.growinghack.application;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import fr.growinghack.GrowingHack;
 import fr.growinghack.packets.PacketMessagerie;
+import fr.growinghack.packets.PacketUserImage;
 import fr.growinghack.server.API;
 import fr.growinghack.ui.TextField;
 import fr.growinghack.util.Font;
@@ -21,7 +23,7 @@ public class Messagerie extends Application {
 	public Texture background = new Texture(Gdx.files.internal("ui/white.png"));
 	public Texture logo = new Texture(Gdx.files.internal("apps/messagerie.png"));
 	public Texture blue = new Texture(Gdx.files.internal("ui/backgroundmessagerie.png"));
-	public Texture hackerLogo = new Texture(Gdx.files.internal("ui/hacker.png"));
+	public Texture avatar = new Texture(Gdx.files.internal("user/noavatar.png"));
 	public Texture offline = new Texture(Gdx.files.internal("ui/close.png"));
 	public Texture online = new Texture(Gdx.files.internal("ui/reduce.png"));
 
@@ -31,6 +33,8 @@ public class Messagerie extends Application {
 
 	private Stage stage;
 	private PacketMessagerie packet;
+	
+	private boolean askForAvatar = false;
 
 	public Messagerie() {
 		packet = new PacketMessagerie();
@@ -66,17 +70,34 @@ public class Messagerie extends Application {
 			for (int c = 0; c < contacts.size(); c++) {
 				String allContacts = contacts.get(c).toUpperCase();
 				
-				if (allContacts.length() > 8) {
-					allContacts = contacts.get(c).toUpperCase().substring(0, 8) + "..";
+				if (allContacts.length() > 12) {
+					allContacts = contacts.get(c).toUpperCase().substring(0, 12) + "..";
 				}
 
 				Font.messagerieContact.draw(batch, allContacts, this.x + 70, Gdx.graphics.getHeight() - this.y - 125 - (c * 64));
-				batch.draw(this.hackerLogo, this.x, Gdx.graphics.getHeight() - this.y - 160 - (c * 64), 72, 72);
+				
+				File cache = new File("cache/" + contacts.get(c) + ".jpg");
+				
+				if(cache.exists())
+				{
+					this.avatar = new Texture(Gdx.files.absolute(cache.getAbsolutePath()));
+				}
+				else if(!cache.exists() && !this.askForAvatar)
+				{
+					PacketUserImage packet = new PacketUserImage();
+					packet.username = contacts.get(c);
+					GrowingHack.instance.client.client.sendTCP(packet);
+					this.askForAvatar = true;
+				}
+				
+				batch.draw(this.avatar, this.x + 12, Gdx.graphics.getHeight() - this.y - 156 - (c * 64), 48, 48);
 
+				/** Coucou Angelo, ici La Voix, ta mission si tu l'acceptes sera de faire un packet pour vérifier si le joueur est connecté ou non **/
+				
 				if (API.isPlayerConnected(allContacts)) {
-					batch.draw(this.online, this.x + 180, Gdx.graphics.getHeight() - this.y - 138 - (c * 64), 12, 12);
+					batch.draw(this.online, this.x + Font.getWidth(allContacts, Font.messagerieContact) + 78, Gdx.graphics.getHeight() - this.y - 138 - (c * 64), 12, 12);
 				} else {
-					batch.draw(this.offline, this.x + 180, Gdx.graphics.getHeight() - this.y - 138 - (c * 64), 12, 12);
+					batch.draw(this.offline, this.x + Font.getWidth(allContacts, Font.messagerieContact) + 78, Gdx.graphics.getHeight() - this.y - 138 - (c * 64), 12, 12);
 				}
 			}
 		} else {

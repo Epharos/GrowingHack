@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.growinghack.GrowingHack;
+import fr.growinghack.util.ImageEncoding;
 
 public class API 
 {
@@ -91,7 +92,10 @@ public class API
 			{
 				while((line = br.readLine()) != null)
 				{
-					contacts.add(line);
+					if(API.getPlayerFile(line).exists())
+					{
+						contacts.add(line);
+					}
 				}
 			} 
 			catch (IOException e) 
@@ -103,50 +107,25 @@ public class API
 		{
 			e.printStackTrace();
 		}
+		
+		System.out.println(contacts.size() + " contacts");
 		
 		return contacts;
 	}
 	
 	public static List<String> getPlayerContacts(int connexionId)
 	{
-		File file = null;
+		String username = null;
 		
 		for(ConnectedPlayer cp : GrowingHack.instance.server.connected)
 		{
 			if(cp.id == connexionId)
 			{
-				file = getPlayerFile(cp.username, "contactslist");
+				username = cp.username;
 			}
 		}
 		
-		List<String> contacts = new ArrayList<String>();
-		
-		try
-		{
-			InputStream is = new FileInputStream(file);
-			
-			InputStreamReader isr = new InputStreamReader(is);
-			BufferedReader br = new BufferedReader(isr);
-			String line = "";
-			
-			try 
-			{
-				while((line = br.readLine()) != null)
-				{
-					contacts.add(line);
-				}
-			} 
-			catch (IOException e) 
-			{
-				e.printStackTrace();
-			}
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		
-		return contacts;
+		return API.getPlayerContacts(username);
 	}
 	
 	public static boolean isPlayerConnected(String username)
@@ -160,5 +139,17 @@ public class API
 		}
 		
 		return false;
+	}
+	
+	public static byte[] getPlayerImage(String username)
+	{
+		File image = new File("accounts/" + username + "/avatar.jpg");
+		
+		if(image.exists())
+		{
+			return ImageEncoding.imageToBytes(image, "jpg");
+		}
+		
+		return null;
 	}
 }
