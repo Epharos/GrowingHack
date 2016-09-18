@@ -3,6 +3,8 @@ package fr.growinghack.packets;
 import java.io.File;
 
 import fr.growinghack.GrowingHack;
+import fr.growinghack.application.Application;
+import fr.growinghack.application.Messagerie;
 import fr.growinghack.application.Terminal;
 import fr.growinghack.client.GrowingHackClient;
 import fr.growinghack.command.Command;
@@ -95,6 +97,14 @@ public class HandlerClient extends Handler
 		if(file.exists() && !packet.useDefaultImage)
 		{
 			ImageEncoding.bytesToImage(packet.image, file, "jpg");
+		}
+	}
+	
+	public void handlerContact(PacketMessagerie packet, int connexionID) {
+		for (Application app : GrowingHack.currentOS.applications) {
+			if (app instanceof Messagerie) {
+				((Messagerie)app).contacts = packet.contacts;
+			}
 		}
 	}
 }

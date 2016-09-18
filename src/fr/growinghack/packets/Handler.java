@@ -23,6 +23,8 @@ public class Handler
 	public void handleTerminal(PacketTerminal packetTerminal, int connexionID) {}
 
 	public void handleUserImage(PacketUserImage packetUserImage, int connexionID) {}
+	
+	public void handleContact (PacketMessagerie packetUserImage, int connexionID) {}
 
 	public void handleUsername(PacketUsername packetUsername) {} 
 }

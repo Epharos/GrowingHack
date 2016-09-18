@@ -1,5 +1,6 @@
 package fr.growinghack.application;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import fr.growinghack.GrowingHack;
+import fr.growinghack.packets.PacketMessagerie;
 import fr.growinghack.server.API;
 import fr.growinghack.ui.TextField;
 import fr.growinghack.util.Font;
@@ -24,12 +26,15 @@ public class Messagerie extends Application {
 	public Texture online = new Texture(Gdx.files.internal("ui/reduce.png"));
 
 	boolean recherche;
-	private List<String> contacts = API.getPlayerContacts(GrowingHack.currentUser.username);
+	public List<String> contacts = new ArrayList<String>();
 	private TextField search;
 
 	private Stage stage;
+	private PacketMessagerie packet;
 
 	public Messagerie() {
+		packet = new PacketMessagerie();
+		
 		this.setDimension((int) (Gdx.graphics.getWidth() / 1.5f), (int) (Gdx.graphics.getHeight() / 1.5f));
 		this.search = new TextField(0, 0, this.width - 12, 32, "");
 		this.stage = new Stage();

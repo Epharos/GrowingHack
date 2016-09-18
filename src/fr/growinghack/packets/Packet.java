@@ -29,6 +29,8 @@ public abstract class Packet
 		Packet.registerPacket(String[].class);
 		Packet.registerPacket(PacketIP.class);
 		Packet.registerPacket(PacketClipboard.class);
+		Packet.registerPacket(List.class);
+		Packet.registerPacket(PacketMessagerie.class);
 	}
 	
 	public static List<Class<?>> classes = new ArrayList<Class<?>>();
