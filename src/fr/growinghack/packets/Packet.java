@@ -29,6 +29,7 @@ public abstract class Packet
 		Packet.registerPacket(String[].class);
 		Packet.registerPacket(PacketIP.class);
 		Packet.registerPacket(PacketClipboard.class);
+		Packet.registerPacket(ArrayList.class);
 		Packet.registerPacket(List.class);
 		Packet.registerPacket(PacketMessagerie.class);
 	}

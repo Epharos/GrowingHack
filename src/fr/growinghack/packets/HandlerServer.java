@@ -221,5 +221,6 @@ public class HandlerServer extends Handler
 	}
 	public void handleContact(PacketMessagerie packet, int connexionID) {
 		packet.contacts = API.getPlayerContacts(connexionID);
+		GrowingHack.instance.server.server.sendToTCP(connexionID, packet);
 	}
 }

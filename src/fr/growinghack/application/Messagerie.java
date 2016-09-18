@@ -34,6 +34,7 @@ public class Messagerie extends Application {
 
 	public Messagerie() {
 		packet = new PacketMessagerie();
+		GrowingHack.instance.client.client.sendTCP(packet);
 		
 		this.setDimension((int) (Gdx.graphics.getWidth() / 1.5f), (int) (Gdx.graphics.getHeight() / 1.5f));
 		this.search = new TextField(0, 0, this.width - 12, 32, "");
