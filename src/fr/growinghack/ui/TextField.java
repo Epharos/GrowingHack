@@ -26,6 +26,7 @@ public class TextField
 	public static final Texture border = new Texture(Gdx.files.internal("ui/border.png"));
 	public static final Texture inside = new Texture(Gdx.files.internal("ui/inside.png"));
 	
+	public boolean canEspace = false;
 	public boolean canWrite = true;
 	
 	public TextField(int x, int y, int w, int h, String t)
@@ -199,6 +200,7 @@ public class TextField
 	public void keyTyped(char key) 
 	{		
 		String allowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.+-&é(-è_çà)=^$ù*!:;,~#{[|`^@]}¤ù*¨£%µ§/?\"\'";
+		if (canEspace) allowedChars = allowedChars + " ";
 		
 		for(int i = 0 ; i < allowedChars.length() ; i++)
 		{

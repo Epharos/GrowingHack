@@ -132,7 +132,7 @@ public class API
 	{
 		for(ConnectedPlayer cp : GrowingHack.instance.server.connected)
 		{
-			if(cp.username.equals("username"))
+			if(cp.username.equals(username))
 			{
 				return true;
 			}
