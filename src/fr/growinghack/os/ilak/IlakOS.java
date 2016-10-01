@@ -61,6 +61,11 @@ public class IlakOS extends OS
 					fr.growinghack.application.Terminal.addChar(key);
 				}
 				
+				if(!fr.growinghack.application.Note.freeze)
+				{
+					fr.growinghack.application.Note.addChar(key);
+				}
+				
 				return true;
 			}
 			

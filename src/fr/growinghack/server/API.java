@@ -14,7 +14,6 @@ import fr.growinghack.util.ImageEncoding;
 
 public class API 
 {
-	@SuppressWarnings("unused")
 	private static File getPlayerFile(String username)
 	{
 		return new File("accounts/" + username);
