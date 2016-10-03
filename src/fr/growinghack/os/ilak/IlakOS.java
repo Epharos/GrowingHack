@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import fr.growinghack.GrowingHack;
 import fr.growinghack.application.Application;
+import fr.growinghack.files.FileLoader;
 import fr.growinghack.icon.*;
 import fr.growinghack.os.OS;
 import fr.growinghack.packets.PacketPing;
@@ -25,7 +26,7 @@ public class IlakOS extends OS
 	private Texture backgroundTache = new Texture(Gdx.files.internal("ui/backgroundterminal.png"));
 	private Texture volume = new Texture(Gdx.files.internal("ui/volume.png"));
 	
-    private File file = new File("cache/" + GrowingHack.currentUser.username + ".jpg");    
+    private File avatar = new File("cache/" + GrowingHack.currentUser.username + ".jpg");    
     private Texture userImage;
 	
     private int timerPing = Integer.MAX_VALUE;    
@@ -36,9 +37,9 @@ public class IlakOS extends OS
 	{
 		GrowingHack.currentOS = this;
 		
-		if(this.file.exists())
+		if(this.avatar.exists())
 		{
-			this.userImage = new Texture(Gdx.files.absolute(file.getAbsolutePath()));
+			this.userImage = new Texture(Gdx.files.absolute(this.avatar.getAbsolutePath()));
 		}
 		else
 		{
@@ -81,6 +82,9 @@ public class IlakOS extends OS
 		});
 		
 		Gdx.input.setInputProcessor(this.stage);
+		
+		FileLoader.load();
+		FileLoader.print(this.files, 0);
 	}
 	
 	@SuppressWarnings("deprecation")

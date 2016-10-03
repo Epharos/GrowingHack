@@ -15,16 +15,16 @@ import fr.growinghack.application.Terminal;
 import fr.growinghack.application.WebBrowser;
 
 public class FileLoader 
-{
-	public static File dir;
-	
-	public FileLoader()
-	{
-		FileLoader.dir = new File("files.txt");
-	}
-	
+{	
 	public static void load()
 	{
+		File dir = new File("files.txt");
+		
+		if(!dir.exists())
+		{
+			dir.mkdir();
+		}
+		
 		List<String> content = new ArrayList<String>();
 		
 		try
@@ -52,36 +52,45 @@ public class FileLoader
 			e.printStackTrace();
 		}
 		
-		Folder folder = new Folder();
-		boolean isFolderOpen = false;
+		List<Folder> folders = new ArrayList<Folder>();
 		
 		for(String line : content)
 		{
+			line = line.replace("\t", "");
+			
 			if(line.startsWith("<folder") && line.endsWith(">"))
 			{
-				folder = new Folder();
-				isFolderOpen = true;
+				folders.add(new Folder());
 				
-				String[] values = line.substring(7, line.length() - 2).split(";");
+				String[] values = line.substring(7, line.length() - 1).split(";");
 				
 				if(values.length > 0)
 				{
-					if(values[0].startsWith("name"))
+					if(values[0].contains("name"))
 					{
-						folder.name = values[0].split(":")[1];
+						folders.get(folders.size() - 1).name = values[0].split(":")[1];
 					}
 				}
 			}
 			
 			if(line.equals("</folder>"))
 			{
-				GrowingHack.currentOS.folders.add(folder);
-				isFolderOpen = false;
+				if(folders.size() == 1)
+				{
+					GrowingHack.currentOS.files.add(folders.get(0));
+					folders.remove(0);
+				}
+				else
+				{
+					folders.get(folders.size() - 2).files.add(folders.get(folders.size() - 1));
+					folders.remove(folders.size() - 1);
+				}
+				
 			}
 			
-			if(line.startsWith("<file") && line.endsWith(">") && isFolderOpen)
-			{
-				String[] values = line.substring(5, line.length() - 2).split(";");
+			if(line.startsWith("<file") && line.endsWith(">"))
+			{				
+				String[] values = line.substring(5, line.length() - 1).split(";");
 				
 				fr.growinghack.files.File file = null;
 				
@@ -90,9 +99,10 @@ public class FileLoader
 					for(String value : values)
 					{
 						String field = value.split(":")[0];
+						field = field.replace(" ", "");
 						String data = value.split(":")[1];
 						
-						if(field.equals("extention"))
+						if(field.equals("type"))
 						{
 							if(data.equals("txt"))
 							{
@@ -113,12 +123,13 @@ public class FileLoader
 							}
 						}
 						
-						folder.files.add(file);
 					}
 				}
+				
+				folders.get(folders.size() - 1).files.add(file);
 			}
 			
-			if(line.startsWith("<specialfile") && line.endsWith(">") && isFolderOpen)
+			if(line.startsWith("<specialfile") && line.endsWith(">"))
 			{
 				String[] values = line.substring(12, line.length() - 2).split(";");
 				
@@ -129,6 +140,7 @@ public class FileLoader
 					for(String value : values)
 					{
 						String field = value.split(":")[0];
+						field = field.replace(" ", "");
 						String data = value.split(":")[1];
 						
 						if(field.equals("open"))
@@ -153,11 +165,50 @@ public class FileLoader
 						{
 							file.name = data;
 						}
-						
-						folder.files.add(file);
+
 					}
 				}
+				
+				folders.get(folders.size() - 1).files.add(file);
 			}
 		}
+	}
+	
+	public static void save()
+	{
+		
+	}
+	
+	public static void print(List<fr.growinghack.files.File> files, int num)
+	{
+		for(fr.growinghack.files.File f : files)
+		{
+			if(f instanceof Folder)
+			{
+				System.out.println(FileLoader.tabs(num) + "Folder > " + f.name);
+				FileLoader.print(((Folder) f).files, num + 1);
+			}
+			else
+			{
+				System.out.println(FileLoader.tabs(num) + "File > " + f.name);
+			}
+		}
+	}
+	
+	public static String tabs(int num)
+	{
+		String toReturn = "";
+		
+		for(int i = 0 ; i < num ; i++)
+		{
+			toReturn = toReturn.concat("\t");
+		}
+		
+		return toReturn;
+	}
+	
+	public static void pr(Object o)
+	{
+		System.out.println(o);
 	}
 }
