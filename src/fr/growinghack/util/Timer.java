@@ -25,6 +25,7 @@ public class Timer
 	
 	public static void update(float delta)
 	{
+		
 		for(Map.Entry<String, Timer> entry : Timer.timers.entrySet())
 		{
 			Timer timer = ((Timer) entry.getValue());

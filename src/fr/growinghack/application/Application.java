@@ -14,10 +14,10 @@ import fr.growinghack.util.Timer;
 
 public abstract class Application 
 {
-	public int x, y; /** Position affichée à l'écran **/
+	public int x, y; /** Position affichï¿½e ï¿½ l'ï¿½cran **/
 	public int x2, y2; /** Sauvegarde de la position avant maximisation **/
-	public int width, height; /** Largeur et hauteur affichée à l'écran **/
-	public int width2, height2; /** Sauvegarde de la largeur et de la hauteur affichée à l'écran **/
+	public int width, height; /** Largeur et hauteur affichï¿½e ï¿½ l'ï¿½cran **/
+	public int width2, height2; /** Sauvegarde de la largeur et de la hauteur affichï¿½e ï¿½ l'ï¿½cran **/
 	public int minWidth, minHeight; /** Largeur et hauteur minimale **/
 	
 	public boolean visible = true;
@@ -31,7 +31,7 @@ public abstract class Application
 	public int prevMouseX = -1;
 	public int prevMouseY = -1;
 	
-	/** Textures des boutons de réduction, maximisation et fermeture de l'application **/
+	/** Textures des boutons de rï¿½duction, maximisation et fermeture de l'application **/
 	protected ButtonLabel close = new ButtonLabel(this.x + this.width - 4 - (int) Font.getWidth("x", Font.buttonWindow), Gdx.graphics.getHeight() - this.y - 1, "x", Font.buttonWindow, Font.buttonWindowOver);
 	protected ButtonLabel fullscreen = new ButtonLabel(this.x + this.width - 4 - (int) Font.getWidth("x +", Font.buttonWindow), Gdx.graphics.getHeight() - this.y - 1, "+", Font.buttonWindow, Font.buttonWindowOver);
 	protected ButtonLabel reduce = new ButtonLabel(this.x + this.width - 4 - (int) Font.getWidth("x + -", Font.buttonWindow), Gdx.graphics.getHeight() - this.y - 1, "-", Font.buttonWindow, Font.buttonWindowOver);

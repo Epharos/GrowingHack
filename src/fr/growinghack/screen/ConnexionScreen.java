@@ -1,5 +1,7 @@
 package fr.growinghack.screen;
 
+import java.util.Random;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -16,7 +18,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import fr.growinghack.GrowingHack;
 import fr.growinghack.packets.PacketConnexionScreenInfos;
 import fr.growinghack.ui.Button;
+import fr.growinghack.ui.TextBox;
 import fr.growinghack.util.Font;
+import fr.growinghack.util.Timer;
 import fr.growinghack.ui.TextField;
 
 public class ConnexionScreen implements Screen
@@ -28,7 +32,10 @@ public class ConnexionScreen implements Screen
 	private OrthographicCamera camera;
 	
 	private Button connect, register;
-	private TextField username, password;
+//	private TextField username;
+	private TextField password;
+	private TextBox username;
+//	private TextBox password;
 	
 	private Stage stage;
 	
@@ -42,16 +49,18 @@ public class ConnexionScreen implements Screen
 		this.growingHack = gh;
 	
 		this.batch = new SpriteBatch();
-		this.wallpaper = new Texture(Gdx.files.internal("wallpaper.png"));
+		this.wallpaper = new Texture(Gdx.files.internal(ConnexionScreen.getRandomWallpaper()));
 		this.sprite = new Sprite(this.wallpaper);
 		this.camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		this.camera.translate(this.camera.viewportWidth / 2, this.camera.viewportHeight / 2);
 		
 		this.connect = new Button(Gdx.graphics.getWidth() / 2 - 90,  2 * Gdx.graphics.getHeight() / 3 - 166, 180, 32, "Se connecter");
 		this.register = new Button(Gdx.graphics.getWidth() / 2 - 90, 2 * Gdx.graphics.getHeight() / 3 - 208, 180, 32, "S'inscrire");
-		this.username = new TextField(Gdx.graphics.getWidth() / 2 - 110, 2 * Gdx.graphics.getHeight() / 3 - 67, 220, 32, "Pseudonyme");
+//		this.username = new TextField(Gdx.graphics.getWidth() / 2 - 110, 2 * Gdx.graphics.getHeight() / 3 - 67, 220, 32, "Pseudonyme");
 		this.password = new TextField(Gdx.graphics.getWidth() / 2 - 110, 2 * Gdx.graphics.getHeight() / 3 - 111, 220, 32, "Mot de passe");
 		this.password.password = true;
+		this.username = new TextBox(Gdx.graphics.getWidth() / 2 - 110, 2 * Gdx.graphics.getHeight() / 3 - 67, 220, 32, "Pseudonyme");
+//		this.password = new TextBox(Gdx.graphics.getWidth() / 2 - 110, 2 * Gdx.graphics.getHeight() / 3 - 111, 220, 32, "Mot de passe").setPassword();
 		
 		this.stage = new Stage();
 		this.stage.addListener(new InputListener()
@@ -84,6 +93,8 @@ public class ConnexionScreen implements Screen
 
 	public void render(float delta) 
 	{
+		Timer.update(Gdx.graphics.getDeltaTime());
+		
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 	    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 	    
@@ -106,7 +117,7 @@ public class ConnexionScreen implements Screen
 		Font.getFont(Font.usualOrange, 24).draw(batch, String.valueOf(registered), 8, 32);
 		Font.getFont(Font.usual, 24).draw(batch, " inscrit" + (registered > 1 ? "s" : "") + " - ", 8 + Font.getWidth(String.valueOf(registered), Font.getFont(Font.usual, 24)), 32);
 		Font.getFont(Font.usualOrange, 24).draw(batch, String.valueOf(connected), 8 + Font.getWidth(registered + " inscrit" + (registered > 1 ? "s" : "") + " - ", Font.getFont(Font.usual, 24)), 32);
-		Font.getFont(Font.usual, 24).draw(batch, " connecté" + (connected > 1 ? "s" : ""), 8 + Font.getWidth(registered + " inscrit" + (registered > 1 ? "s" : "") + " - " + connected, Font.getFont(Font.usual, 24)), 32);
+		Font.getFont(Font.usual, 24).draw(batch, " connectï¿½" + (connected > 1 ? "s" : ""), 8 + Font.getWidth(registered + " inscrit" + (registered > 1 ? "s" : "") + " - " + connected, Font.getFont(Font.usual, 24)), 32);
 		
 		batch.end();
 		
@@ -150,5 +161,28 @@ public class ConnexionScreen implements Screen
 		Button.inside.dispose();
 		TextField.border.dispose();
 		TextField.inside.dispose();
+	}
+	
+	public static String getRandomWallpaper()
+	{
+		Random rand = new Random();
+		
+		switch(rand.nextInt(6))
+		{
+			case 0:
+				return "wallpaper.png";
+			case 1:
+				return "wallpaper2.jpeg";
+			case 2:
+				return "wallpaper3.jpeg";
+			case 3:
+				return "wallpaper4.jpeg";
+			case 4:
+				return "wallpaper5.png";
+			case 5:
+				return "wallpaper6.png";
+		}
+		
+		return "wallpaper2.jpeg";
 	}
 }

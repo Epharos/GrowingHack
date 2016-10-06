@@ -69,7 +69,7 @@ public class TextField
 			{
 				for(int i = 0 ; i < Font.getHeight("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", Font.getFont(Font.usual, 24)) + 5 ; i++)
 				{
-					batch.draw(border, x + 4 + Font.getWidth(this.showedText.substring(0, this.cursor), Font.getFont(Font.usual, 24)), this.y + 5 + i);
+					batch.draw(border, x + 2 + Font.getWidth(this.showedText.substring(0, this.cursor), Font.getFont(Font.usual, 24)), this.y + 5 + i);
 				}
 			}
 			
@@ -199,7 +199,7 @@ public class TextField
 
 	public void keyTyped(char key) 
 	{		
-		String allowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.+-&й(-и_за)=^$щ*!:;,~#{[|`^@]}¤щ*ЁЈ%µ§/?\"\'";
+		String allowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.+-&пїЅ(-пїЅ_пїЅпїЅ)=^$пїЅ*!:;,~#{[|`^@]}пїЅпїЅ*пїЅпїЅ%пїЅпїЅ/?\"\'";
 		if (canEspace) allowedChars = allowedChars + " ";
 		
 		for(int i = 0 ; i < allowedChars.length() ; i++)

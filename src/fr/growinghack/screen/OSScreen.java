@@ -29,7 +29,7 @@ public class OSScreen implements Screen
 		this.growingHack = gh;
 		
 		this.batch = new SpriteBatch();
-		this.wallpaper = new Texture(Gdx.files.internal("wallpaper.png"));
+		this.wallpaper = new Texture(Gdx.files.internal(ConnexionScreen.getRandomWallpaper()));
 		this.sprite = new Sprite(this.wallpaper);
 		this.camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		this.camera.translate(this.camera.viewportWidth / 2, this.camera.viewportHeight / 2);

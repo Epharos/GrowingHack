@@ -22,7 +22,14 @@ public class FileLoader
 		
 		if(!dir.exists())
 		{
-			dir.mkdir();
+			try
+			{
+				dir.createNewFile();
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
 		}
 		
 		List<String> content = new ArrayList<String>();
