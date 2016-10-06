@@ -10,7 +10,7 @@ public class IP
 		
 		for(int i = 0 ; i < 4 ; i++)
 		{
-			ip = ip.concat((Math.random() * 254 + 1) + (i != 3 ? "." : ""));
+			ip = ip.concat(Math.floor((Math.random() * 254 + 1)) + (i != 3 ? "." : ""));
 		}
 		
 		return ip;
