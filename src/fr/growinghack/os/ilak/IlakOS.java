@@ -129,6 +129,7 @@ public class IlakOS extends OS
 		batch.draw(this.userImage, Gdx.graphics.getWidth() - 40, Gdx.graphics.getHeight() - 24, 23, 23);
 		
 		this.drawIcons(batch, mouseX, mouseY);
+		this.drawIcons2(batch, mouseX, mouseY);
 		
 		if(!this.applications.isEmpty())
 		{
@@ -180,6 +181,14 @@ public class IlakOS extends OS
 		name1 = name1.concat("...");
 		
 		return name1;
+	}
+	
+	public void drawIcons2(Batch batch, int mouseX, int mouseY)
+	{
+		for(int i = 0 ; i < this.files.size() ; i++)
+		{
+			this.files.get(i).draw(batch, mouseX, mouseY);
+		}
 	}
 	
 	public void drawIcons(Batch batch, int mouseX, int mouseY)

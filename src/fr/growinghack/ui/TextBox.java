@@ -111,7 +111,6 @@ public class TextBox
 		{
 			if(TextBox.drawCursor)
 			{
-				System.out.println(this.cursorOnScreen + "/" + this.shownText.length());
 				batch.draw(TextBox.cursorTexture, x + 4 + Font.getWidth(this.shownText.substring(0, this.cursorOnScreen), Font.getFont(Font.usual, 24)), this.y + 5, 1, 24);
 			}
 		}

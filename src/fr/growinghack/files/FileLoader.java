@@ -130,6 +130,12 @@ public class FileLoader
 							}
 						}
 						
+						if(field.equals("pos"))
+						{
+							file.i = Integer.valueOf(data.split(",")[0]);
+							file.j = Integer.valueOf(data.split(",")[1]);
+						}
+						
 					}
 				}
 				
