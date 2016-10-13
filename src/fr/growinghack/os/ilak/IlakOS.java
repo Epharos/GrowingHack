@@ -12,11 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import fr.growinghack.GrowingHack;
-import fr.growinghack.application.Application;
 import fr.growinghack.files.FileLoader;
-import fr.growinghack.icon.*;
 import fr.growinghack.os.OS;
-import fr.growinghack.packets.PacketPing;
 import fr.growinghack.util.Font;
 import fr.growinghack.util.Timer;
 
@@ -28,8 +25,6 @@ public class IlakOS extends OS
 	
     private File avatar = new File("cache/" + GrowingHack.currentUser.username + ".jpg");    
     private Texture userImage;
-	
-    private int timerPing = Integer.MAX_VALUE;    
     
 	public Stage stage;
     
@@ -45,11 +40,6 @@ public class IlakOS extends OS
 		{
 			this.userImage = new Texture(Gdx.files.internal("user/noavatar.png"));
 		}
-		
-		this.icons.add(new Terminal());
-		this.icons.add(new WebBrowser());
-		this.icons.add(new Messagerie());
-		this.icons.add(new Note());
 		
 		this.stage = new Stage();
 		
@@ -128,8 +118,11 @@ public class IlakOS extends OS
 		
 		batch.draw(this.userImage, Gdx.graphics.getWidth() - 40, Gdx.graphics.getHeight() - 24, 23, 23);
 		
-		this.drawIcons(batch, mouseX, mouseY);
-		this.drawIcons2(batch, mouseX, mouseY);
+		try
+		{
+			this.drawIcons(batch, mouseX, mouseY);
+		}
+		catch(Exception e) {}
 		
 		if(!this.applications.isEmpty())
 		{
@@ -148,14 +141,6 @@ public class IlakOS extends OS
 			
 			this.applications.get(this.currentApplication).renderApp(batch, mouseX, mouseY, this);
 			this.applications.get(this.currentApplication).getMouseAction(mouseX, mouseY, this);
-		}
-		
-		this.timerPing++;
-		
-		if(this.timerPing >= 180)
-		{
-			this.timerPing = 0;
-			GrowingHack.instance.client.client.sendTCP(new PacketPing());
 		}
 	}
 	
@@ -183,71 +168,71 @@ public class IlakOS extends OS
 		return name1;
 	}
 	
-	public void drawIcons2(Batch batch, int mouseX, int mouseY)
+	public void drawIcons(Batch batch, int mouseX, int mouseY)
 	{
-		for(int i = 0 ; i < this.files.size() ; i++)
+		for(int i = 0 ; i < this.goToFolder("OS:" + GrowingHack.currentUser.username + ":Desktop").files.size() ; i++)
 		{
-			this.files.get(i).draw(batch, mouseX, mouseY);
+			this.goToFolder(GrowingHack.currentUser.username + ":Desktop").files.get(i).draw(batch, mouseX, mouseY);
 		}
 	}
 	
-	public void drawIcons(Batch batch, int mouseX, int mouseY)
-	{
-		int appInLine = (int) (Gdx.graphics.getHeight() / (86 + Font.getHeight(Font.allChars, Font.appName)));
-		
-		for(int i = 0 ; i < this.icons.size() ; i++)
-		{
-			int textureWidth = this.icons.get(i).icon.getWidth();
-			int textureHeight = this.icons.get(i).icon.getHeight();
-			
-			float k = 64.0f / Math.max(textureWidth, textureHeight);
-			
-			int diff = (int) ((64 - (textureHeight * k)) / 2);
-			
-			Font.appName.draw(batch, getAppName(this.icons.get(i).getAppName()), 86 * (i / appInLine) + 56 - Font.getWidth(getAppName(this.icons.get(i).getAppName()), Font.appName) / 2, Gdx.graphics.getHeight() - 94 * (i % appInLine) - 128);
-			
-			boolean x = mouseX >= 86 * (i / appInLine) + 8 && mouseX <= 86 * (i / appInLine) + 106;
-			boolean y = mouseY >= ((i % appInLine + 1) * (86 + Font.getHeight(Font.allChars, Font.appName)) + 24) - 64 && mouseY <= ((i % appInLine + 1) * (86 + Font.getHeight(Font.allChars, Font.appName)) + 108) - 64;
-			
-			if(x && y)
-			{
-				Color origin = batch.getColor();
-				batch.setColor(0.8f, 0.8f, 0.8f, 0.9f);
-				batch.draw(this.icons.get(i).icon, 24 + (i / appInLine) * 86, Gdx.graphics.getHeight() - ((i % appInLine + 1) * (86 + Font.getHeight(Font.allChars, Font.appName)) + 24) + diff, textureWidth * k, textureHeight * k);
-				batch.setColor(origin);
-				
-				boolean canOpen = true;
-				
-				if(Gdx.input.isButtonPressed(Input.Buttons.LEFT))
-				{
-					if(!this.applications.isEmpty())
-					{
-						for(Application app : this.applications)
-						{
-							if(app.getAppID() == this.icons.get(i).getAppID())
-							{
-								canOpen = false;
-							}
-							
-							if(!app.canInteractWithOther(mouseX, mouseY))
-							{
-								canOpen = false;
-							}
-						}
-					}
-					
-					if(canOpen)
-					{
-						this.applications.add(this.icons.get(i).openApp());
-					}
-				}
-			}
-			else
-			{
-				batch.draw(this.icons.get(i).icon, 24 + (i / appInLine) * 86, Gdx.graphics.getHeight() - ((i % appInLine + 1) * (86 + Font.getHeight(Font.allChars, Font.appName)) + 24) + diff, textureWidth * k, textureHeight * k);
-			}
-		}
-	}
+//	public void drawIcons(Batch batch, int mouseX, int mouseY)
+//	{
+//		int appInLine = (int) (Gdx.graphics.getHeight() / (86 + Font.getHeight(Font.allChars, Font.appName)));
+//		
+//		for(int i = 0 ; i < this.icons.size() ; i++)
+//		{
+//			int textureWidth = this.icons.get(i).icon.getWidth();
+//			int textureHeight = this.icons.get(i).icon.getHeight();
+//			
+//			float k = 64.0f / Math.max(textureWidth, textureHeight);
+//			
+//			int diff = (int) ((64 - (textureHeight * k)) / 2);
+//			
+//			Font.appName.draw(batch, getAppName(this.icons.get(i).getAppName()), 86 * (i / appInLine) + 56 - Font.getWidth(getAppName(this.icons.get(i).getAppName()), Font.appName) / 2, Gdx.graphics.getHeight() - 94 * (i % appInLine) - 128);
+//			
+//			boolean x = mouseX >= 86 * (i / appInLine) + 8 && mouseX <= 86 * (i / appInLine) + 106;
+//			boolean y = mouseY >= ((i % appInLine + 1) * (86 + Font.getHeight(Font.allChars, Font.appName)) + 24) - 64 && mouseY <= ((i % appInLine + 1) * (86 + Font.getHeight(Font.allChars, Font.appName)) + 108) - 64;
+//			
+//			if(x && y)
+//			{
+//				Color origin = batch.getColor();
+//				batch.setColor(0.8f, 0.8f, 0.8f, 0.9f);
+//				batch.draw(this.icons.get(i).icon, 24 + (i / appInLine) * 86, Gdx.graphics.getHeight() - ((i % appInLine + 1) * (86 + Font.getHeight(Font.allChars, Font.appName)) + 24) + diff, textureWidth * k, textureHeight * k);
+//				batch.setColor(origin);
+//				
+//				boolean canOpen = true;
+//				
+//				if(Gdx.input.isButtonPressed(Input.Buttons.LEFT))
+//				{
+//					if(!this.applications.isEmpty())
+//					{
+//						for(Application app : this.applications)
+//						{
+//							if(app.getAppID() == this.icons.get(i).getAppID())
+//							{
+//								canOpen = false;
+//							}
+//							
+//							if(!app.canInteractWithOther(mouseX, mouseY))
+//							{
+//								canOpen = false;
+//							}
+//						}
+//					}
+//					
+//					if(canOpen)
+//					{
+//						this.applications.add(this.icons.get(i).openApp());
+//					}
+//				}
+//			}
+//			else
+//			{
+//				batch.draw(this.icons.get(i).icon, 24 + (i / appInLine) * 86, Gdx.graphics.getHeight() - ((i % appInLine + 1) * (86 + Font.getHeight(Font.allChars, Font.appName)) + 24) + diff, textureWidth * k, textureHeight * k);
+//			}
+//		}
+//	}
 
 	public String getName() 
 	{

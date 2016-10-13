@@ -71,11 +71,21 @@ public class FileLoader
 				
 				String[] values = line.substring(7, line.length() - 1).split(";");
 				
-				if(values.length > 0)
+				for(String value : values)
 				{
-					if(values[0].contains("name"))
+					String field = value.split(":")[0];
+					field = field.replace(" ", "");
+					String data = value.split(":")[1];
+					
+					if(field.equals("name"))
 					{
-						folders.get(folders.size() - 1).name = values[0].split(":")[1];
+						folders.get(folders.size() - 1).name = data;
+					}
+					
+					if(field.equals("pos"))
+					{
+						folders.get(folders.size() - 1).i = Integer.valueOf(data.split(",")[0]);
+						folders.get(folders.size() - 1).j = Integer.valueOf(data.split(",")[1]);
 					}
 				}
 			}

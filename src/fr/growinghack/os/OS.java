@@ -7,11 +7,10 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 
 import fr.growinghack.application.Application;
 import fr.growinghack.files.File;
-import fr.growinghack.icon.Icon;
+import fr.growinghack.files.Folder;
 
 public abstract class OS 
 {		
-	public List<Icon> icons = new ArrayList<Icon>(); /** Liste des icones à afficher sur le bureau **/
 	public List<Application> applications = new ArrayList<Application>(); /** Liste des applications ouvertes **/
 	
 	public List<File> files = new ArrayList<File>();
@@ -21,4 +20,28 @@ public abstract class OS
 	public abstract void render(Batch batch, int mouseX, int mouseY); /** Affichage de l'OS **/
 	
 	public abstract String getName(); /** Retourne le nom de l'OS **/
+	
+	public Folder goToFolder(String url)
+	{
+		Folder folderToShow = (Folder) this.files.get(0);
+		
+		String[] splitedUrl = url.split(":");
+		
+		for(String current : splitedUrl)
+		{
+			theFile : for(File f : folderToShow.files)
+			{
+				if(f instanceof Folder)
+				{
+					if(f.name.equals(current))
+					{
+						folderToShow = (Folder) f;
+						break theFile;
+					}
+				}
+			}
+		}
+		
+		return folderToShow;
+	}
 }

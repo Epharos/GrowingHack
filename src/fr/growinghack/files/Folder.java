@@ -2,7 +2,7 @@ package fr.growinghack.files;
 
 import java.util.*;
 
-import fr.growinghack.icon.Icon2;
+import fr.growinghack.icon.Icon;
 
 public class Folder extends File
 {
@@ -10,7 +10,7 @@ public class Folder extends File
 	
 	public Folder()
 	{
-		this.icon = new Icon2("apps/folder.png");
+		this.icon = new Icon("apps/folder.png");
 	}
 
 	public String getExtention() 
