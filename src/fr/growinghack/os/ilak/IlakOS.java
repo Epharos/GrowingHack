@@ -172,7 +172,20 @@ public class IlakOS extends OS
 	{
 		for(int i = 0 ; i < this.goToFolder("OS:" + GrowingHack.currentUser.username + ":Desktop").files.size() ; i++)
 		{
-			this.goToFolder(GrowingHack.currentUser.username + ":Desktop").files.get(i).draw(batch, mouseX, mouseY);
+			boolean x = mouseX >= this.goToFolder(GrowingHack.currentUser.username + ":Desktop").files.get(i).i && mouseX <= this.goToFolder(GrowingHack.currentUser.username + ":Desktop").files.get(i).i + 106;
+			boolean y = mouseY >= this.goToFolder(GrowingHack.currentUser.username + ":Desktop").files.get(i).j && mouseY <= this.goToFolder(GrowingHack.currentUser.username + ":Desktop").files.get(i).j + 64;
+			
+			if(x && y)
+			{
+				Color origin = batch.getColor();
+				batch.setColor(0.8f, 0.8f, 0.8f, 0.9f);
+				this.goToFolder(GrowingHack.currentUser.username + ":Desktop").files.get(i).draw(batch, mouseX, mouseY);
+				batch.setColor(origin);
+			}
+			else
+			{
+				this.goToFolder(GrowingHack.currentUser.username + ":Desktop").files.get(i).draw(batch, mouseX, mouseY);
+			}
 		}
 	}
 	
