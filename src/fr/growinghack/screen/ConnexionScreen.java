@@ -32,10 +32,8 @@ public class ConnexionScreen implements Screen
 	private OrthographicCamera camera;
 	
 	private Button connect, register;
-//	private TextField username;
+	private TextField username;
 	private TextField password;
-	private TextBox username;
-//	private TextBox password;
 	
 	private Stage stage;
 	
@@ -56,11 +54,8 @@ public class ConnexionScreen implements Screen
 		
 		this.connect = new Button(Gdx.graphics.getWidth() / 2 - 90,  2 * Gdx.graphics.getHeight() / 3 - 166, 180, 32, "Se connecter");
 		this.register = new Button(Gdx.graphics.getWidth() / 2 - 90, 2 * Gdx.graphics.getHeight() / 3 - 208, 180, 32, "S'inscrire");
-//		this.username = new TextField(Gdx.graphics.getWidth() / 2 - 110, 2 * Gdx.graphics.getHeight() / 3 - 67, 220, 32, "Pseudonyme");
-		this.password = new TextField(Gdx.graphics.getWidth() / 2 - 110, 2 * Gdx.graphics.getHeight() / 3 - 111, 220, 32, "Mot de passe");
-		this.password.password = true;
-		this.username = new TextBox(Gdx.graphics.getWidth() / 2 - 110, 2 * Gdx.graphics.getHeight() / 3 - 67, 220, 32, "Pseudonyme");
-//		this.password = new TextBox(Gdx.graphics.getWidth() / 2 - 110, 2 * Gdx.graphics.getHeight() / 3 - 111, 220, 32, "Mot de passe").setPassword();
+		this.username = new TextField(Gdx.graphics.getWidth() / 2 - 110, 2 * Gdx.graphics.getHeight() / 3 - 67, 220, 32, "Pseudonyme");
+		this.password = new TextField(Gdx.graphics.getWidth() / 2 - 110, 2 * Gdx.graphics.getHeight() / 3 - 111, 220, 32, "Mot de passe").setPassword('*');
 		
 		this.stage = new Stage();
 		this.stage.addListener(new InputListener()
@@ -154,14 +149,7 @@ public class ConnexionScreen implements Screen
 
 	public void hide() {}
 	
-	public void dispose() 
-	{
-		this.wallpaper.dispose();
-		Button.border.dispose();
-		Button.inside.dispose();
-		TextField.border.dispose();
-		TextField.inside.dispose();
-	}
+	public void dispose() {}
 	
 	public static String getRandomWallpaper()
 	{

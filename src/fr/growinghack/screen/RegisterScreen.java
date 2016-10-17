@@ -190,14 +190,7 @@ public class RegisterScreen implements Screen
 
 	public void hide() {}
 	
-	public void dispose() 
-	{
-		this.wallpaper.dispose();
-		Button.border.dispose();
-		Button.inside.dispose();
-		TextField.border.dispose();
-		TextField.inside.dispose();
-	}
+	public void dispose() {}
 	
 	public void show() {}
 }
