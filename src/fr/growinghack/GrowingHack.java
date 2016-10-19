@@ -21,7 +21,15 @@ public class GrowingHack extends Game
 	
 	public static OS currentOS; /** Instance statique de l'Operating System **/
 	
-	/** Initialisation de l'écran **/
+	public static String credentialsUsername, credentialsPassword;
+	
+	public void setCredentials(String s1, String s2)
+	{
+		GrowingHack.credentialsUsername = s1;
+		GrowingHack.credentialsPassword = s2;
+	}
+	
+	/** Initialisation de l'ï¿½cran **/
 	public void create() 
 	{
 		GrowingHack.instance = this;
@@ -31,7 +39,7 @@ public class GrowingHack extends Game
 		this.setScreen(new ConnexionScreen(this));
 	}
 	
-	/** Cette fonction est appelée lorsque le client a réussi l'authentification 
+	/** Cette fonction est appelï¿½e lorsque le client a rï¿½ussi l'authentification 
 	 * 
 	 * @param s : le pseudo du client
 	 */

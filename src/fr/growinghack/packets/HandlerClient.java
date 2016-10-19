@@ -23,22 +23,22 @@ public class HandlerClient extends Handler
 		switch(packet.error)
 		{
 			case 0:
-				ConnexionScreen.errorMessage = "Le nom de compte ou le mot de passe est incorrect.";
+				System.err.println("Le nom de compte ou le mot de passe est incorrect.");
 				break;
 			case 1:
-				RegisterScreen.errorMessage = "Un joueur est déjà enregistré avec ce pseudo.";
+				RegisterScreen.errorMessage = "Un joueur est dï¿½jï¿½ enregistrï¿½ avec ce pseudo.";
 				break;
 			case 2:
-				RegisterScreen.errorMessage = "Cette adresse mail est déjà utilisée par un autre joueur.";
+				RegisterScreen.errorMessage = "Cette adresse mail est dï¿½jï¿½ utilisï¿½e par un autre joueur.";
 				break;
 			case 42:
-				RegisterScreen.errorMessage = "Le compte a bien été créé.";
+				RegisterScreen.errorMessage = "Le compte a bien ï¿½tï¿½ crï¿½ï¿½.";
 				break;
 			case 3:
-				ConnexionScreen.errorMessage = "Votre compte a été banni.";
+				System.err.println("Votre compte a ï¿½tï¿½ banni.");
 				break;
 			case 1337:
-				ConnexionScreen.errorMessage = "Connexion en cours ...";
+				System.err.println("Connexion en cours ...");
 				GrowingHack.instance.onClientConnected(packet.username);
 				break;
 		}

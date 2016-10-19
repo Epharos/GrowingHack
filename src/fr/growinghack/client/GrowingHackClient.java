@@ -54,7 +54,7 @@ public class GrowingHackClient
 				
 			}
 			
-			/** Traitement des packets reçu par le HandlerClient **/
+			/** Traitement des packets reï¿½u par le HandlerClient **/
 			public void received(Connection connection, Object o)
 			{				
 				if(o instanceof Packet)
@@ -76,14 +76,14 @@ public class GrowingHackClient
 	
 	/** Affiche un message dans la console
 	 * 
-	 * @param o : l'objet à afficher
+	 * @param o : l'objet ï¿½ afficher
 	 */
 	public static void pr(Object o)
 	{
 		System.out.println("[CLIENT] " + String.valueOf(o));
 	}
 	
-	/** Crée un compte
+	/** Crï¿½e un compte
 	 * 
 	 * @param username : nom d'utilisateur
 	 * @param password : mot de passe

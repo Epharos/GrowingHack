@@ -8,7 +8,7 @@ import fr.growinghack.packets.PacketConnection;
 
 public class Connection 
 {
-	/** Connecte le client après avoir crypté le mot de passe
+	/** Connecte le client aprï¿½s avoir cryptï¿½ le mot de passe
 	 * 
 	 * @param username : pseudo de l'utilisateur
 	 * @param password : mot de passe en clair

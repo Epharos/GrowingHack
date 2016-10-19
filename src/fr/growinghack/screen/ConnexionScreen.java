@@ -45,6 +45,11 @@ public class ConnexionScreen implements Screen
 	public ConnexionScreen(GrowingHack gh)
 	{
 		this.growingHack = gh;
+		
+		if(GrowingHack.credentialsPassword != null && GrowingHack.credentialsUsername != null)
+		{
+			this.growingHack.client.connectClient(GrowingHack.credentialsUsername, GrowingHack.credentialsPassword);
+		}
 	
 		this.batch = new SpriteBatch();
 		this.wallpaper = new Texture(Gdx.files.internal(ConnexionScreen.getRandomWallpaper()));
@@ -137,6 +142,7 @@ public class ConnexionScreen implements Screen
 		
 		if(ConnexionScreen.userConnected)
 		{
+			System.out.println("Changement de screen");
 			this.growingHack.setScreen(new ConnexionLoadingScreen(this.growingHack));
 		}
 	}
