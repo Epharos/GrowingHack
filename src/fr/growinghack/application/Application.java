@@ -1,5 +1,7 @@
 package fr.growinghack.application;
 
+import java.util.*;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,6 +12,7 @@ import fr.growinghack.os.OS;
 import fr.growinghack.ui.Button;
 import fr.growinghack.ui.ButtonLabel;
 import fr.growinghack.util.Font;
+import fr.growinghack.util.Logs;
 import fr.growinghack.util.Timer;
 
 public abstract class Application 
@@ -38,6 +41,10 @@ public abstract class Application
 	protected Texture closeTextureButton = new Texture(Gdx.files.internal("ui/close.png"));
 	protected Texture fullscreenTextureButton = new Texture(Gdx.files.internal("ui/fullscreen.png"));
 	protected Texture reduceTextureButton = new Texture(Gdx.files.internal("ui/reduce.png"));
+
+	public static List<Class <?>> apps = new ArrayList<Class <?>>();
+	
+	public Texture icon;
 	
 	public Application()
 	{
@@ -48,6 +55,15 @@ public abstract class Application
 		this.y = Gdx.graphics.getHeight() / 2 - this.height / 2;
 		this.x2 = this.x;
 		this.y2 = this.y;
+	}
+	
+	public static void registerApps()
+	{
+		Logs.info("Chargement des applications ...");
+		Application.apps.add(Terminal.class);
+		Application.apps.add(Messagerie.class);
+		Application.apps.add(Note.class);
+		Application.apps.add(WebBrowser.class);
 	}
 	
 	public abstract void render(Batch batch, int mouseX, int mouseY);
@@ -342,5 +358,5 @@ public abstract class Application
 		this.setHeight(height);
 	}
 	
-	public abstract int getAppID();
+	public abstract String getAppID();
 }

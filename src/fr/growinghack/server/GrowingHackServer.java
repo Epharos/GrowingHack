@@ -74,9 +74,4 @@ public class GrowingHackServer
 			e.printStackTrace();
 		}
 	}
-	
-	public static void pr(Object o)
-	{
-		System.out.println("[SERVER] " + String.valueOf(o));
-	}
 }

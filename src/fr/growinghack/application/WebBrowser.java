@@ -43,6 +43,7 @@ public class WebBrowser extends Application
 			}
 		});
 		Gdx.input.setInputProcessor(this.stage);
+		this.icon = new Texture(Gdx.files.internal("apps/internet.png"));
 	}
 	
 	public void render(Batch batch, int mouseX, int mouseY) 
@@ -63,7 +64,8 @@ public class WebBrowser extends Application
 		
 		batch.draw(Button.inside, this.x, Gdx.graphics.getHeight() - this.y - this.height + this.webBrowser.height, this.width, 2);
 		
-		if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {	
+		if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) 
+		{	
 			this.webBrowser.navigate(this.url.text);
 		}
 	}
@@ -73,8 +75,8 @@ public class WebBrowser extends Application
 		return "Navigateur Internet";
 	}
 
-	public int getAppID() 
+	public String getAppID() 
 	{
-		return 2;
+		return "webbrowser";
 	}
 }

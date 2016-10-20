@@ -9,6 +9,7 @@ import fr.growinghack.packets.PacketUserImage;
 import fr.growinghack.screen.ConnexionScreen;
 import fr.growinghack.server.GrowingHackServer;
 import fr.growinghack.util.Font;
+import fr.growinghack.util.Logs;
 
 public class GrowingHack extends Game
 {	
@@ -32,6 +33,7 @@ public class GrowingHack extends Game
 	/** Initialisation de l'ï¿½cran **/
 	public void create() 
 	{
+		Logs.info("Création du jeu (client et serveur) ...");
 		GrowingHack.instance = this;
 		new Font();
 		this.server = new GrowingHackServer();
@@ -45,6 +47,7 @@ public class GrowingHack extends Game
 	 */
 	public void onClientConnected(String s)
 	{
+		Logs.important("Connexion du joueur " + s);
 		GrowingHack.currentUser = new User().setUsername(s);
 		PacketUserImage packet2 = new PacketUserImage();
 		packet2.username = GrowingHack.currentUser.username;

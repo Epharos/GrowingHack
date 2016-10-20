@@ -12,6 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import fr.growinghack.GrowingHack;
+import fr.growinghack.application.Application;
+import fr.growinghack.files.App;
 import fr.growinghack.files.FileLoader;
 import fr.growinghack.os.OS;
 import fr.growinghack.util.Font;
@@ -73,8 +75,8 @@ public class IlakOS extends OS
 		
 		Gdx.input.setInputProcessor(this.stage);
 		
+		Application.registerApps();
 		FileLoader.load();
-		FileLoader.print(this.files, 0);
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -170,7 +172,7 @@ public class IlakOS extends OS
 	
 	public void drawIcons(Batch batch, int mouseX, int mouseY)
 	{
-		for(int i = 0 ; i < this.goToFolder("OS:" + GrowingHack.currentUser.username + ":Desktop").files.size() ; i++)
+		for(int i = 0 ; i < this.goToFolder(GrowingHack.currentUser.username + ":Desktop").files.size() ; i++)
 		{
 			boolean x = mouseX >= this.goToFolder(GrowingHack.currentUser.username + ":Desktop").files.get(i).i && mouseX <= this.goToFolder(GrowingHack.currentUser.username + ":Desktop").files.get(i).i + 106;
 			boolean y = mouseY >= this.goToFolder(GrowingHack.currentUser.username + ":Desktop").files.get(i).j && mouseY <= this.goToFolder(GrowingHack.currentUser.username + ":Desktop").files.get(i).j + 64;

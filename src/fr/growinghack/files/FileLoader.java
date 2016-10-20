@@ -10,14 +10,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.growinghack.GrowingHack;
+import fr.growinghack.application.Application;
 import fr.growinghack.application.Messagerie;
 import fr.growinghack.application.Terminal;
 import fr.growinghack.application.WebBrowser;
+import fr.growinghack.util.Logs;
 
 public class FileLoader 
 {	
 	public static void load()
 	{
+		Logs.info("Chargement des fichiers du joueur");
+		
 		File dir = new File("files.txt");
 		
 		if(!dir.exists())
@@ -152,11 +156,11 @@ public class FileLoader
 				folders.get(folders.size() - 1).files.add(file);
 			}
 			
-			if(line.startsWith("<specialfile") && line.endsWith(">"))
+			if(line.startsWith("<app") && line.endsWith(">"))
 			{
-				String[] values = line.substring(12, line.length() - 2).split(";");
+				String[] values = line.substring(4, line.length() - 1).split(";");
 				
-				SpecialFile file = new SpecialFile();
+				App file = new App();
 				
 				if(values.length > 0)
 				{
@@ -167,20 +171,27 @@ public class FileLoader
 						String data = value.split(":")[1];
 						
 						if(field.equals("open"))
-						{
-							if(data.equals("terminal"))
+						{							
+							for(Class<?> app : Application.apps)
 							{
-								file.toOpen = Terminal.class;
-							}
-							
-							if(data.equals("webbrowser"))
-							{
-								file.toOpen = WebBrowser.class;
-							}
-							
-							if(data.equals("messagerie"))
-							{
-								file.toOpen = Messagerie.class;
+								try 
+								{
+									System.out.println(data + " / " + ((Application) app.newInstance()).getAppID());
+									
+									if(((Application) app.newInstance()).getAppID().equals(data))
+									{
+										file.toOpen = app;
+										break;
+									}
+								} 
+								catch (InstantiationException e) 
+								{
+									e.printStackTrace();
+								} 
+								catch (IllegalAccessException e) 
+								{
+									e.printStackTrace();
+								}
 							}
 						}
 						
@@ -189,12 +200,19 @@ public class FileLoader
 							file.name = data;
 						}
 
+						if(field.equals("pos"))
+						{
+							file.i = Integer.valueOf(data.split(",")[0]);
+							file.j = Integer.valueOf(data.split(",")[1]);
+						}
 					}
 				}
 				
 				folders.get(folders.size() - 1).files.add(file);
 			}
 		}
+		
+		Logs.success("Terminé");
 	}
 	
 	public static void save()

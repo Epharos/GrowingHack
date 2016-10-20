@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 
+import fr.growinghack.application.Application;
 import fr.growinghack.icon.Icon;
 import fr.growinghack.util.Font;
 

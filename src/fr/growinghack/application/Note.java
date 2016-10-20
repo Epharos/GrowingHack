@@ -36,6 +36,7 @@ public class Note extends Application {
 		this.y = Gdx.graphics.getHeight() / 2 - this.height / 2;
 		this.x2 = this.x;
 		this.y2 = this.y;
+		this.icon = new Texture(Gdx.files.internal("apps/note.png"));
 	}
 
 	public static void addLines(MulticolorLine... s1) {
@@ -155,7 +156,8 @@ public class Note extends Application {
 		return "Note";
 	}
 
-	public int getAppID() {
-		return 0;
+	public String getAppID() 
+	{
+		return "note";
 	}
 }

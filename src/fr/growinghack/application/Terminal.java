@@ -46,6 +46,7 @@ public class Terminal extends Application
 		this.y = Gdx.graphics.getHeight() / 2 - this.height / 2;
 		this.x2 = this.x;
 		this.y2 = this.y;
+		this.icon = new Texture(Gdx.files.internal("apps/terminal.png"));
 	}
 	
 	public static void addLines(MulticolorLine ... s1)
@@ -199,8 +200,8 @@ public class Terminal extends Application
 		return false;
 	}
 
-	public int getAppID() 
+	public String getAppID() 
 	{
-		return 0;
+		return "terminal";
 	}
 }

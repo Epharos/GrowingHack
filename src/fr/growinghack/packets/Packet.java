@@ -3,6 +3,8 @@ package fr.growinghack.packets;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.growinghack.util.Logs;
+
 public abstract class Packet 
 {
 	public abstract void handlePacket(Handler handler, int connexionID);
@@ -14,6 +16,7 @@ public abstract class Packet
 	
 	public static final void registerPackets()
 	{
+		Logs.info("Chargement des packet ...");
 		Packet.registerPacket(Packet.class);
 		Packet.registerPacket(PacketUsername.class);
 		Packet.registerPacket(PacketCreateAccount.class);

@@ -12,6 +12,7 @@ import fr.growinghack.screen.ConnexionScreen;
 import fr.growinghack.screen.RegisterScreen;
 import fr.growinghack.util.BooleanConnexion;
 import fr.growinghack.util.ImageEncoding;
+import fr.growinghack.util.Logs;
 
 public class HandlerClient extends Handler 
 {
@@ -23,22 +24,22 @@ public class HandlerClient extends Handler
 		switch(packet.error)
 		{
 			case 0:
-				System.err.println("Le nom de compte ou le mot de passe est incorrect.");
+				Logs.error("Le nom de compte ou le mot de passe est incorrect");
 				break;
 			case 1:
-				RegisterScreen.errorMessage = "Un joueur est dï¿½jï¿½ enregistrï¿½ avec ce pseudo.";
+				Logs.error("Un joueur est déjà enregistré avec ce pseudo");
 				break;
 			case 2:
-				RegisterScreen.errorMessage = "Cette adresse mail est dï¿½jï¿½ utilisï¿½e par un autre joueur.";
+				Logs.error("Cette adresse mail est déjà utiliée par un autre joueur");
 				break;
 			case 42:
-				RegisterScreen.errorMessage = "Le compte a bien ï¿½tï¿½ crï¿½ï¿½.";
+				Logs.success("Le compte a bien été créé");
 				break;
 			case 3:
-				System.err.println("Votre compte a ï¿½tï¿½ banni.");
+				Logs.error("Votre compte a été banni.");
 				break;
 			case 1337:
-				System.err.println("Connexion en cours ...");
+				Logs.success("Connexion en cours ...");
 				GrowingHack.instance.onClientConnected(packet.username);
 				break;
 		}

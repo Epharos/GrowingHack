@@ -5,6 +5,7 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
+import fr.growinghack.application.Application;
 import fr.growinghack.auth.AccountCreation;
 import fr.growinghack.packets.HandlerClient;
 import fr.growinghack.packets.Packet;

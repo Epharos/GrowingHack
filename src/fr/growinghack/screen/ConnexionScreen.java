@@ -45,11 +45,6 @@ public class ConnexionScreen implements Screen
 	public ConnexionScreen(GrowingHack gh)
 	{
 		this.growingHack = gh;
-		
-		if(GrowingHack.credentialsPassword != null && GrowingHack.credentialsUsername != null)
-		{
-			this.growingHack.client.connectClient(GrowingHack.credentialsUsername, GrowingHack.credentialsPassword);
-		}
 	
 		this.batch = new SpriteBatch();
 		this.wallpaper = new Texture(Gdx.files.internal(ConnexionScreen.getRandomWallpaper()));
@@ -97,6 +92,11 @@ public class ConnexionScreen implements Screen
 		
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 	    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+	    
+	    if(GrowingHack.credentialsPassword != null && GrowingHack.credentialsUsername != null)
+		{
+			this.growingHack.client.connectClient(GrowingHack.credentialsUsername, GrowingHack.credentialsPassword);
+		}
 	    
 	    int mouseX = Gdx.input.getX(), mouseY = Gdx.input.getY();
 		

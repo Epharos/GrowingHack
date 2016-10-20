@@ -52,6 +52,7 @@ public class Messagerie extends Application {
 			}
 		});
 		Gdx.input.setInputProcessor(this.stage);
+		this.icon = new Texture(Gdx.files.internal("apps/messagerie.png"));
 	}
 
 	public void render(Batch batch, int mouseX, int mouseY) {
@@ -111,7 +112,8 @@ public class Messagerie extends Application {
 	}
 
 	@Override
-	public int getAppID() {
-		return 0;
+	public String getAppID() 
+	{
+		return "messagerie";
 	}
 }
