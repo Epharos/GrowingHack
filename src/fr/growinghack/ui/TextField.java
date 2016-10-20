@@ -143,6 +143,19 @@ public class TextField
 			}
 		}
 		
+		if (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)) {
+
+			if (TextField.canDelete && this.selected) {
+				if (text.length() > 0) {
+
+					text = text.substring(0, this.cursor);
+					cursor = 0;
+					TextField.canDelete = false;
+
+				}
+			}
+		}
+		
 		if(Gdx.input.isKeyJustPressed(Keys.LEFT))
 		{
 			if(this.cursor > 0)

@@ -16,6 +16,7 @@ import fr.growinghack.util.Font;
 
 public class Note extends Application {
 	public Texture background = new Texture(Gdx.files.internal("ui/backgroundterminal.png"));
+	public Texture cursor = new Texture(Gdx.files.internal("ui/white.png"));
 
 	private static List<MulticolorLine> lines = new ArrayList<MulticolorLine>();
 	private static String currentLine = "";
@@ -78,7 +79,6 @@ public class Note extends Application {
 	}
 
 	public void render(Batch batch, int mouseX, int mouseY) {
-
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
 			Note.addLines(new MulticolorLine(Font.terminal, 
 					new Color[] {Color.WHITE }, Note.currentLine));
@@ -153,10 +153,6 @@ public class Note extends Application {
 
 	public String getAppName() {
 		return "Note";
-	}
-
-	public boolean resizable() {
-		return false;
 	}
 
 	public int getAppID() {
