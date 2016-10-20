@@ -138,11 +138,40 @@ public class IlakOS extends OS
 					{
 						this.currentApplication = i;
 					}
+					else if(!this.applications.get(this.currentApplication).isMouseInside(mouseX, mouseY) && this.applications.get(this.currentApplication).canInteractWithOther(mouseX, mouseY) && !this.applications.get(i).isMouseInside(mouseX, mouseY) && Gdx.input.isButtonPressed(Input.Buttons.LEFT))
+					{
+						for(fr.growinghack.files.File f : this.files)
+						{
+							boolean x = mouseX >= this.goToFolder(GrowingHack.currentUser.username + ":Desktop").files.get(i).i && mouseX <= this.goToFolder(GrowingHack.currentUser.username + ":Desktop").files.get(i).i + 106;
+							boolean y = mouseY >= this.goToFolder(GrowingHack.currentUser.username + ":Desktop").files.get(i).j && mouseY <= this.goToFolder(GrowingHack.currentUser.username + ":Desktop").files.get(i).j + 64;
+							
+							if(x && y)
+							{
+								f.open();
+							}
+						}
+					}
 				}
 			}
 			
 			this.applications.get(this.currentApplication).renderApp(batch, mouseX, mouseY, this);
 			this.applications.get(this.currentApplication).getMouseAction(mouseX, mouseY, this);
+		}
+		else
+		{
+			if(Gdx.input.isButtonPressed(Input.Buttons.LEFT))
+			{
+				for(fr.growinghack.files.File f : this.goToFolder(GrowingHack.currentUser.username + ":Desktop").files)
+				{
+					boolean x = mouseX >= f.i && mouseX <= f.i + 106;
+					boolean y = mouseY >= f.j && mouseY <= f.j + 64;
+					
+					if(x && y)
+					{
+						f.open();
+					}
+				}
+			}
 		}
 	}
 	

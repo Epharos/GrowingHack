@@ -175,9 +175,7 @@ public class FileLoader
 							for(Class<?> app : Application.apps)
 							{
 								try 
-								{
-									System.out.println(data + " / " + ((Application) app.newInstance()).getAppID());
-									
+								{									
 									if(((Application) app.newInstance()).getAppID().equals(data))
 									{
 										file.toOpen = app;
