@@ -5,7 +5,6 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
-import fr.growinghack.application.Application;
 import fr.growinghack.auth.AccountCreation;
 import fr.growinghack.packets.HandlerClient;
 import fr.growinghack.packets.Packet;
@@ -21,8 +20,6 @@ public class GrowingHackClient
 	private static final String ip = "localhost"; /** IP de connexion au serveur **/
 	
 	public static final String build = "indev"; /** Version du client **/
-	
-	public static String clipboard = ""; /** Clipboard (pour les "copier/coller") **/
 	
 	private static final HandlerClient handler = new HandlerClient(); /** Le manipulateur de packets **/
 	

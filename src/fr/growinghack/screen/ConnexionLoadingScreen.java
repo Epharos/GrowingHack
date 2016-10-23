@@ -12,8 +12,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import fr.growinghack.GrowingHack;
 import fr.growinghack.packets.PacketClientInfos;
-import fr.growinghack.ui.Button;
-import fr.growinghack.ui.TextField;
 import fr.growinghack.util.BooleanConnexion;
 import fr.growinghack.util.Font;
 
@@ -77,7 +75,7 @@ public class ConnexionLoadingScreen implements Screen
 	    
 	    Font.getFont(Font.usual, 24).draw(batch, "Bienvenue ", Gdx.graphics.getWidth() / 6 + 154, Gdx.graphics.getHeight() / 2 + 20f);
 	    Font.getFont(Font.usualOrange, 24).draw(batch, GrowingHack.currentUser.username, Gdx.graphics.getWidth() / 6 + 154 + Font.getWidth("Bienvenue ", Font.getFont(Font.usual, 24)), Gdx.graphics.getHeight() / 2 + 20f);
-	    Font.getFont(Font.usual, 24).draw(batch, "Nous chargeons vos paramètres ...", Gdx.graphics.getWidth() / 6 + 154, Gdx.graphics.getHeight() / 2);
+	    Font.getFont(Font.usual, 24).draw(batch, "Nous chargeons vos paramï¿½tres ...", Gdx.graphics.getWidth() / 6 + 154, Gdx.graphics.getHeight() / 2);
 		
 		this.batch.end();
 		

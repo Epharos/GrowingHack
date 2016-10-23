@@ -13,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import fr.growinghack.GrowingHack;
 import fr.growinghack.application.Application;
-import fr.growinghack.files.App;
 import fr.growinghack.files.FileLoader;
 import fr.growinghack.os.OS;
 import fr.growinghack.util.Font;

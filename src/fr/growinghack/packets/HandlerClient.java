@@ -6,10 +6,8 @@ import fr.growinghack.GrowingHack;
 import fr.growinghack.application.Application;
 import fr.growinghack.application.Messagerie;
 import fr.growinghack.application.Terminal;
-import fr.growinghack.client.GrowingHackClient;
 import fr.growinghack.command.Command;
 import fr.growinghack.screen.ConnexionScreen;
-import fr.growinghack.screen.RegisterScreen;
 import fr.growinghack.util.BooleanConnexion;
 import fr.growinghack.util.ImageEncoding;
 import fr.growinghack.util.Logs;
@@ -27,16 +25,16 @@ public class HandlerClient extends Handler
 				Logs.error("Le nom de compte ou le mot de passe est incorrect");
 				break;
 			case 1:
-				Logs.error("Un joueur est déjà enregistré avec ce pseudo");
+				Logs.error("Un joueur est dï¿½jï¿½ enregistrï¿½ avec ce pseudo");
 				break;
 			case 2:
-				Logs.error("Cette adresse mail est déjà utiliée par un autre joueur");
+				Logs.error("Cette adresse mail est dï¿½jï¿½ utiliï¿½e par un autre joueur");
 				break;
 			case 42:
-				Logs.success("Le compte a bien été créé");
+				Logs.success("Le compte a bien ï¿½tï¿½ crï¿½ï¿½");
 				break;
 			case 3:
-				Logs.error("Votre compte a été banni.");
+				Logs.error("Votre compte a ï¿½tï¿½ banni.");
 				break;
 			case 1337:
 				Logs.success("Connexion en cours ...");
@@ -52,11 +50,6 @@ public class HandlerClient extends Handler
 		GrowingHack.currentUser.level = packet.level;
 		
 		BooleanConnexion.playerInfos = true;
-	}
-	
-	public void handleClipboard(PacketClipboard packet) 
-	{
-		GrowingHackClient.clipboard = packet.clipboard;
 	}
 	
 	public void handleCommand(PacketCommand packet, int connexionID) 

@@ -10,8 +10,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import fr.growinghack.GrowingHack;
 import fr.growinghack.os.ilak.IlakOS;
-import fr.growinghack.ui.Button;
-import fr.growinghack.ui.TextField;
 
 public class OSScreen implements Screen 
 {

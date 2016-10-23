@@ -18,7 +18,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import fr.growinghack.GrowingHack;
 import fr.growinghack.packets.PacketConnexionScreenInfos;
 import fr.growinghack.ui.Button;
-import fr.growinghack.ui.TextBox;
 import fr.growinghack.util.Font;
 import fr.growinghack.util.Timer;
 import fr.growinghack.ui.TextField;

@@ -11,9 +11,6 @@ import java.util.List;
 
 import fr.growinghack.GrowingHack;
 import fr.growinghack.application.Application;
-import fr.growinghack.application.Messagerie;
-import fr.growinghack.application.Terminal;
-import fr.growinghack.application.WebBrowser;
 import fr.growinghack.util.Logs;
 
 public class FileLoader 
@@ -210,7 +207,7 @@ public class FileLoader
 			}
 		}
 		
-		Logs.success("Terminé");
+		Logs.success("Terminï¿½");
 	}
 	
 	public static void save()
