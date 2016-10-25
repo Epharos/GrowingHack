@@ -16,6 +16,7 @@ import fr.growinghack.application.Application;
 import fr.growinghack.files.FileLoader;
 import fr.growinghack.os.OS;
 import fr.growinghack.util.Font;
+import fr.growinghack.util.Logs;
 import fr.growinghack.util.Timer;
 
 public class IlakOS extends OS 
@@ -80,7 +81,7 @@ public class IlakOS extends OS
 	
 	@SuppressWarnings("deprecation")
 	public void render(Batch batch, int mouseX, int mouseY) 
-	{			
+	{					
 		Timer.update(Gdx.graphics.getDeltaTime());
 		
 		batch.draw(this.backgroundTache, 0, Gdx.graphics.getHeight() - 26, Gdx.graphics.getWidth(), 26);

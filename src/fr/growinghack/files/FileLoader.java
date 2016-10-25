@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.growinghack.GrowingHack;
-import fr.growinghack.application.Application;
 import fr.growinghack.util.Logs;
 
 public class FileLoader 
@@ -166,25 +165,7 @@ public class FileLoader
 						
 						if(field.equals("open"))
 						{							
-							for(Class<?> app : Application.apps)
-							{
-								try 
-								{									
-									if(((Application) app.newInstance()).getAppID().equals(data))
-									{
-										file.toOpen = app;
-										break;
-									}
-								} 
-								catch (InstantiationException e) 
-								{
-									e.printStackTrace();
-								} 
-								catch (IllegalAccessException e) 
-								{
-									e.printStackTrace();
-								}
-							}
+							file.toOpen = data;
 						}
 						
 						if(field.equals("name"))
@@ -203,8 +184,6 @@ public class FileLoader
 				folders.get(folders.size() - 1).files.add(file);
 			}
 		}
-		
-		Logs.success("Termin�");
 	}
 	
 	public static void save()

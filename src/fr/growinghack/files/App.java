@@ -12,7 +12,7 @@ import fr.growinghack.util.Font;
 
 public class App extends File 
 {
-	public Class<?> toOpen;
+	public String toOpen;
 	
 	public String getExtention() 
 	{
@@ -21,11 +21,17 @@ public class App extends File
 
 	public void open() 
 	{
-		if(this.toOpen != null)
+		for(Class<?> c : Application.apps)
 		{
 			try 
 			{
-				GrowingHack.currentOS.applications.add((Application) this.toOpen.newInstance());
+				Application app = (Application) c.newInstance();
+				
+				if(app.getAppID().equals(this.toOpen))
+				{
+					GrowingHack.currentOS.applications.add(app);
+					return;
+				}
 			} 
 			catch (InstantiationException e) 
 			{
@@ -40,32 +46,58 @@ public class App extends File
 	
 	public void draw(Batch batch, int mouseX, int mouseY)
 	{		
-		int textureWidth = 0;
-		int textureHeight = 0;
-		float k = 64.0f / Math.max(textureWidth, textureHeight);
-		float dy = Gdx.graphics.getHeight() - 85 - this.j;
+		Application app = null;
 		
-		try
+		application : for(Class<?> c : Application.apps)
 		{
-			textureWidth = ((Application) ((App) this).toOpen.newInstance()).icon.getWidth();
-			textureHeight = ((Application) ((App) this).toOpen.newInstance()).icon.getHeight();
-			k = 64.0f / Math.max(textureWidth, textureHeight);
-			dy = Gdx.graphics.getHeight() - 85 - this.j;
+			try 
+			{
+				app = (Application) c.newInstance();
 				
-			batch.draw(((Application) ((App) this).toOpen.newInstance()).icon, i + (64.0f / textureWidth) * 64, dy + (64.0f / textureHeight) * 64, k * textureWidth, k * textureHeight);
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
+				if(app.getAppID().equals(this.toOpen))
+				{
+					break application;
+				}
+			} 
+			catch (InstantiationException e) 
+			{
+				e.printStackTrace();
+			}
+			catch (IllegalAccessException e) 
+			{
+				e.printStackTrace();
+			}
 		}
 		
-		Rectangle r1 = new Rectangle();
-		Rectangle toDrawIn = new Rectangle(this.i, 0, 104, Gdx.graphics.getHeight());
-		Stage stage = new Stage();
-		ScissorStack.calculateScissors(stage.getCamera(), batch.getTransformMatrix(), toDrawIn, r1);
-		ScissorStack.pushScissors(r1);
-		Font.appName.draw(batch, this.name, i + 52 - (Font.getWidth(this.name, Font.appName) <= 104 ? (Font.getWidth(this.name, Font.appName) / 2) : 52), dy + 16);
-		batch.flush();
-		ScissorStack.popScissors();
+		if(app != null)
+		{
+			int textureWidth = app.icon.getWidth();
+			int textureHeight = app.icon.getWidth();
+			float k = 64.0f / Math.max(textureWidth, textureHeight);
+			float dy = Gdx.graphics.getHeight() - 85 - this.j;
+			
+			try
+			{
+				textureWidth = app.icon.getWidth();
+				textureHeight = app.icon.getHeight();
+				k = 64.0f / Math.max(textureWidth, textureHeight);
+				dy = Gdx.graphics.getHeight() - 85 - this.j;
+					
+				batch.draw(app.icon, i + (64.0f / textureWidth) * 64, dy + (64.0f / textureHeight) * 64, k * textureWidth, k * textureHeight);
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+			
+			Rectangle r1 = new Rectangle();
+			Rectangle toDrawIn = new Rectangle(this.i, 0, 104, Gdx.graphics.getHeight());
+			Stage stage = new Stage();
+			ScissorStack.calculateScissors(stage.getCamera(), batch.getTransformMatrix(), toDrawIn, r1);
+			ScissorStack.pushScissors(r1);
+			Font.appName.draw(batch, this.name, i + 52 - (Font.getWidth(this.name, Font.appName) <= 104 ? (Font.getWidth(this.name, Font.appName) / 2) : 52), dy + 16);
+			batch.flush();
+			ScissorStack.popScissors();
+		}
 	}
 }
