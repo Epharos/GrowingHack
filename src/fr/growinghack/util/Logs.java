@@ -2,12 +2,12 @@ package fr.growinghack.util;
 
 public class Logs
 {
-	public static void log(Object o)
+	private static void log(Object o)
 	{
 		System.out.println(o);
 	}
 	
-	public static void err(Object o)
+	private static void err(Object o)
 	{
 		System.err.println(o);
 	}
