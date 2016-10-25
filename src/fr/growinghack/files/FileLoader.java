@@ -135,10 +135,7 @@ public class FileLoader
 						
 						if(field.equals("content"))
 						{
-//							for(String cline : data.split("/nl"))
-//							{
-//								file.content.add(cline);
-//							}
+							file.content = data;
 						}
 						
 						if(field.equals("pos"))
