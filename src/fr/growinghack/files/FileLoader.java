@@ -124,7 +124,7 @@ public class FileLoader
 						{
 							if(data.equals("txt"))
 							{
-								file = new Text();
+								file = new Text(data);
 							}
 						}
 						
@@ -135,10 +135,10 @@ public class FileLoader
 						
 						if(field.equals("content"))
 						{
-							for(String cline : data.split("/nl"))
-							{
-								file.content.add(cline);
-							}
+//							for(String cline : data.split("/nl"))
+//							{
+//								file.content.add(cline);
+//							}
 						}
 						
 						if(field.equals("pos"))

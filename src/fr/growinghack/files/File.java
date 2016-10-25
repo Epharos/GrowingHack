@@ -1,7 +1,5 @@
 package fr.growinghack.files;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
@@ -13,8 +11,7 @@ import fr.growinghack.util.Font;
 
 public abstract class File 
 {
-	public ArrayList<String> content = new ArrayList<String>();
-	public String content2, name;
+	public String content, name;
 	public Icon icon;
 	public int i, j;
 	

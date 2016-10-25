@@ -26,9 +26,12 @@ public class Note extends Application {
 
 	public static boolean freeze = false;
 
-	public Note() {
+	public Note(String content) {
 		Note.lines.clear();
-		Note.currentLine = "";
+
+		if (content == null) content = "";
+		Note.currentLine = content;
+
 		this.setDimension(800, 563);
 		this.minHeight = 563;
 		this.minWidth = 800;
@@ -81,9 +84,8 @@ public class Note extends Application {
 
 	public void render(Batch batch, int mouseX, int mouseY) {
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-			Note.addLines(new MulticolorLine(Font.terminal, 
-					new Color[] {Color.WHITE }, Note.currentLine));
-			
+			Note.addLines(new MulticolorLine(Font.terminal, new Color[] { Color.WHITE }, Note.currentLine));
+
 			Note.currentLine = "";
 			Note.scrollLine = Note.lines.size();
 			Note.drawBetween = Note.scrollLine - 23;
@@ -156,8 +158,7 @@ public class Note extends Application {
 		return "Note";
 	}
 
-	public String getAppID() 
-	{
+	public String getAppID() {
 		return "note";
 	}
 }
