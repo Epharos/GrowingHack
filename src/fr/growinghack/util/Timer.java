@@ -49,4 +49,9 @@ public class Timer
 	{
 		
 	}
+	
+	public void setCurrentTime(float f)
+	{
+		this.time = f;
+	}
 }

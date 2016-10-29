@@ -142,10 +142,10 @@ public class FileLoader
 							file.i = Integer.valueOf(data.split(",")[0]);
 							file.j = Integer.valueOf(data.split(",")[1]);
 						}
-						
 					}
 				}
 				
+				file.initRectangleAndStage();
 				folders.get(folders.size() - 1).files.add(file);
 			}
 			
@@ -181,6 +181,7 @@ public class FileLoader
 					}
 				}
 				
+				file.initRectangleAndStage();
 				folders.get(folders.size() - 1).files.add(file);
 			}
 		}

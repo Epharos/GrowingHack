@@ -29,7 +29,10 @@ public class IlakOS extends OS
     private Texture userImage;
     
 	public Stage stage;
+	
+	public static java.util.Date date = new java.util.Date();
     
+	@SuppressWarnings("deprecation")
 	public IlakOS()
 	{
 		GrowingHack.currentOS = this;
@@ -77,6 +80,16 @@ public class IlakOS extends OS
 		
 		Application.registerApps();
 		FileLoader.load();
+		
+		Timer time = new Timer("houronscreen", 60f)
+		{
+			public void execute()
+			{
+				IlakOS.date = new java.util.Date();		
+			}
+		};
+		
+		time.setCurrentTime(IlakOS.date.getSeconds());
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -110,7 +123,6 @@ public class IlakOS extends OS
 			batch.draw(offButton, xB, yB, 20, 20);
 		}
 		
-		java.util.Date date = new java.util.Date();		
 		Font.terminal1.draw(batch, (date.getHours() < 10 ? "0" : "") + date.getHours() + (date.getMinutes() < 10 ? ":0" : ":") + date.getMinutes(), Gdx.graphics.getWidth() - 140 - nameWidth, Gdx.graphics.getHeight() - 6);
 
 		batch.setColor(1f, 1f, 1f, 1f);
@@ -219,64 +231,6 @@ public class IlakOS extends OS
 			}
 		}
 	}
-	
-//	public void drawIcons(Batch batch, int mouseX, int mouseY)
-//	{
-//		int appInLine = (int) (Gdx.graphics.getHeight() / (86 + Font.getHeight(Font.allChars, Font.appName)));
-//		
-//		for(int i = 0 ; i < this.icons.size() ; i++)
-//		{
-//			int textureWidth = this.icons.get(i).icon.getWidth();
-//			int textureHeight = this.icons.get(i).icon.getHeight();
-//			
-//			float k = 64.0f / Math.max(textureWidth, textureHeight);
-//			
-//			int diff = (int) ((64 - (textureHeight * k)) / 2);
-//			
-//			Font.appName.draw(batch, getAppName(this.icons.get(i).getAppName()), 86 * (i / appInLine) + 56 - Font.getWidth(getAppName(this.icons.get(i).getAppName()), Font.appName) / 2, Gdx.graphics.getHeight() - 94 * (i % appInLine) - 128);
-//			
-//			boolean x = mouseX >= 86 * (i / appInLine) + 8 && mouseX <= 86 * (i / appInLine) + 106;
-//			boolean y = mouseY >= ((i % appInLine + 1) * (86 + Font.getHeight(Font.allChars, Font.appName)) + 24) - 64 && mouseY <= ((i % appInLine + 1) * (86 + Font.getHeight(Font.allChars, Font.appName)) + 108) - 64;
-//			
-//			if(x && y)
-//			{
-//				Color origin = batch.getColor();
-//				batch.setColor(0.8f, 0.8f, 0.8f, 0.9f);
-//				batch.draw(this.icons.get(i).icon, 24 + (i / appInLine) * 86, Gdx.graphics.getHeight() - ((i % appInLine + 1) * (86 + Font.getHeight(Font.allChars, Font.appName)) + 24) + diff, textureWidth * k, textureHeight * k);
-//				batch.setColor(origin);
-//				
-//				boolean canOpen = true;
-//				
-//				if(Gdx.input.isButtonPressed(Input.Buttons.LEFT))
-//				{
-//					if(!this.applications.isEmpty())
-//					{
-//						for(Application app : this.applications)
-//						{
-//							if(app.getAppID() == this.icons.get(i).getAppID())
-//							{
-//								canOpen = false;
-//							}
-//							
-//							if(!app.canInteractWithOther(mouseX, mouseY))
-//							{
-//								canOpen = false;
-//							}
-//						}
-//					}
-//					
-//					if(canOpen)
-//					{
-//						this.applications.add(this.icons.get(i).openApp());
-//					}
-//				}
-//			}
-//			else
-//			{
-//				batch.draw(this.icons.get(i).icon, 24 + (i / appInLine) * 86, Gdx.graphics.getHeight() - ((i % appInLine + 1) * (86 + Font.getHeight(Font.allChars, Font.appName)) + 24) + diff, textureWidth * k, textureHeight * k);
-//			}
-//		}
-//	}
 
 	public String getName() 
 	{
